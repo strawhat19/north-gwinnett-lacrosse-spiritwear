@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(Dev) North Gwinnett High School (Suwanee, GA) Athletics</title>
+    <title>(Dev) NGHS High School (Suwanee, GA) Athletics</title>
     <link rel="icon" type="image/png" href="https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 <body>
 
@@ -51,6 +53,11 @@
 
 
     <style>
+        :root {
+          --main: #d72327;
+          --transition: 0.24s cubic-bezier(0.77, 0.2, 0.05, 1);  
+          --transition-5s: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);  
+        }
         .custom-page-content {
             margin-top: 0 !important;
         }
@@ -71,29 +78,45 @@
             margin: 0;
         }
         #spiritwear_nav {
-            background: #222;
             display: flex;
-            justify-content: center;
             padding: 0.5rem;
+            background: #222;
+            justify-content: center;
         }
         #spiritwear_nav a {
             color: #fff;
             margin: 0 1rem;
             text-decoration: none;
+            transition: var(--transition-5s);
+        }
+        .productsContainer {
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: repeat-y !important;
+            background: url(./assets/girl_lacrosse_run_2.jpg);
         }
         .products {
             gap: 1.5rem;
+            padding: 2rem;
             display: grid;
-            padding: 2rem 2rem 0;
+            min-height: 600px;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         }
         .product {
             padding: 1rem;
             cursor: pointer;
-            background: #fff;
+            min-height: 335px;
             border-radius: 5px;
             text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            container-name: product;
+            backdrop-filter: blur(5px);
+            container-type: inline-size;
+            transition: var(--transition-5s);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .product.featured {
+            grid-column: 5/1;
         }
         .product img {
             max-width: 100%;
@@ -111,34 +134,81 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            text-decoration: none !important;
+            transition: var(--transition-5s);
         }
-        .product_footer {
+        .product a h3 {
+            position: relative;
+            transition: var(--transition-5s);
+        }
+        .product a h3::before {
+            right: 0;
+            z-index: 0;
+            width: 100%;
+            height: 1px;
+            bottom: -5px;
+            display: block;
+            position: absolute;
+            transform: scale(0, 1);
+            content: "" !important;
+            background: var(--main);
+            transform-origin: 0% 100%;
+            transition: var(--transition-5s);
+        }
+        .product:hover {
+            background: rgba(255, 255, 255, 0.99);
+        }
+        .product:hover h3::before {
+            transform: scale(1, 1);
+            transition: var(--transition-5s);
+        }
+        .productDetails {
             display: flex;
             flex-direction: column;
+        }
+        .productLoading {
+            display: flex;
+            font-size: 2.5rem;
+            align-items: center;
+            pointer-events: none;
+            justify-content: center;
         }
         #spiritwear_footer {
             color: #fff;
             padding: 1rem;
-            margin-top: 2rem;
             background: #111;
             text-align: center;
         }
-    </style>
-
-    <style>
-        .products {
-            gap: 15px;
-            padding: 20px 20px 0;
+        .hoverLink {
+            position: relative;
+            transition: var(--transition);
+            text-decoration: none !important;
         }
-        .product {
-            padding: 10px;
+        .hoverLink::before {
+            right: 0;
+            z-index: 0;
+            width: 100%;
+            height: 1px;
+            bottom: -5px;
+            display: block;
+            position: absolute;
+            transform: scale(0, 1);
+            content: "" !important;
+            background: var(--main);
+            transform-origin: 0% 100%;
+            transition: var(--transition);
         }
-        #spiritwear_nav {
-            padding: 5px;
+        .activeTabLink::before {
+            transform: scale(1, 1);
         }
-        #spiritwear_nav a {
-            margin: 0 10px;
-            font-size: 14px;
+        .hoverLink:hover::before {
+            transform: scale(1, 1);
+            transition: var(--transition);
+        }
+        @container product (max-width: 300px) {
+            img {
+                max-height: 215px;
+            }
         }
     </style>
  
@@ -148,75 +218,241 @@
     </header>
 
     <nav id="spiritwear_nav">
-        <a href="#">Spiritwear</a>
-        <a href="#">Sponsorship</a>
+        <!-- Empty on First Render, Dynamically Filled by JavaScript -->
     </nav>
 
-    <section class="products">
-        <div class="product">
-            <a href="#">
-                <img src="https://5starassets.blob.core.windows.net/multi-media/2527115/hub/image009%20(1).png" alt="Lacrosse Team Jacket" />
-                <div class="product_footer">
-                    <h3>NGHS Lacrosse Team Jacket</h3>
-                    <p>$100.00</p>
-                    <div id="paypal-button-container-1"></div>
+    <main class="productsContainer">
+        <section id="productsSection" class="products">
+            <div class="product productLoading">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
-            </a>
-        </div>
-
-        <div class="product">
-            <a href="#">
-                <img src="https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png" alt="Girls Lacrosse Bag" />
-                <div class="product_footer">
-                    <h3>Girls Lacrosse Team Bag</h3>
-                    <p>$80.00</p>
-                    <div id="paypal-button-container-2"></div>
-                </div>
-            </a>
-        </div>
-
-        <div class="product">
-            <a href="#">
-                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Boys Lacrosse Bag" />
-                <div class="product_footer">
-                    <h3>Boys Lacrosse Team Bag</h3>
-                    <p>$59.99</p>
-                    <div id="paypal-button-container-3"></div>
-                </div>
-            </a>
-        </div>
-
-        <div class="product">
-            <a href="#">
-                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="Rain Jacket" />
-                <div class="product_footer">
-                    <h3>Lacrosse Team Rain Jacket</h3>
-                    <p>$60.00</p>
-                    <div id="paypal-button-container-4"></div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <section class="products">
-        <div class="product">
-            <a href="#">
-                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f" alt="T-Shirt" />
-                <div class="product_footer">
-                    <h3>Unisex T-Shirt</h3>
-                    <p>$60.00</p>
-                    <div id="paypal-button-container-5"></div>
-                </div>
-            </a>
-        </div>
-    </section>
+                <i>Product(s) Loading...</i>
+            </div>
+        </section>
+    </main>
   
     <footer id="spiritwear_footer">
         <p>© <span id="spiritwear_footer_copyright_year">2025</span> Lacrosse Spiritwear Store</p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" integrity="sha256-ihAoc6M/JPfrIiIeayPE9xjin4UWjsx2mjW/rtmxLM4=" crossorigin="anonymous"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
     <script>
-        spiritwear_footer_copyright_year.innerHTML = new Date().getFullYear();
+        let activeTab = `Spiritwear`;
+        let navTabs = [
+            {
+                url: `#`,
+                name: `Spiritwear`,
+            },
+            {
+                url: `#`,
+                name: `Sponsorship`,
+            }
+        ]?.map((nt, nti) => ({ 
+            ...nt, 
+            id: nti + 1, 
+        }));
+
+        function appendNavTab(navTab, container) {
+            let navTabHTML = `
+                <a id="navtab_${navTab?.id}" href="${navTab?.url}" title="${navTab?.name}" class="navTabLink hoverLink ${navTab?.name == activeTab ? `activeTabLink` : ``}">
+                    ${navTab?.name}
+                </a>
+            `;
+            container.insertAdjacentHTML(`beforeend`, navTabHTML);
+        }
+
+        function setNavTabs() {
+            if (spiritwear_nav) {
+                spiritwear_nav.innerHTML = ``;
+                for (let i = 0; i < navTabs.length; i++) {
+                    let navTb = navTabs[i];
+                    if (navTb) {
+                        appendNavTab(navTb, spiritwear_nav);
+                    }
+                }
+                startNavTabListeners();
+            }
+        }
+
+        function startNavTabListeners() {
+            let navTabLinks = document.querySelectorAll(`.navTabLink`);
+            navTabLinks.forEach(nt => {
+                nt.onclick = (e) => {
+                    let ntName = e?.target?.title;
+                    activeTab = ntName;
+                    setNavTabs();
+                    setProducts();
+                }
+            })
+        }
+
+        let maxDecimals = 2;
+        let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
+
+        let products = [
+            {
+                url: `#`,
+                price: 100.00,
+                featured: false,
+                name: `NGHS Lacrosse Team Jacket`,
+                imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/image009%20(1).png`],
+            },
+            {
+                url: `#`,
+                price: 80.00,
+                featured: false,
+                name: `Girls Lacrosse Team Bag`,
+                imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
+            },
+            {
+                url: `#`,
+                price: 100.00,
+                featured: false,
+                name: `Boys Lacrosse NGHS T-Shirt`,
+                imageURLs: [`./assets/official/lacrosse_northgwinnett.png`],
+            },
+            {
+                url: `#`,
+                price: 80.00,
+                featured: false,
+                name: `Boys Lacrosse Vertical Stick T-Shirt`,
+                imageURLs: [`./assets/official/lacrosssestick_vertical.png`],
+            },
+            {
+                url: `#`,
+                price: 59.99,
+                featured: false,
+                name: `Boys Lacrosse NGHS Bulldogs T-Shirt`,
+                imageURLs: [`./assets/official/NG_bulldogs.png`],
+            },
+            {
+                url: `#`,
+                price: 60.00,
+                featured: false,
+                name: `Boys Lacrosse NGHS Black Bar T-Shirt`,
+                imageURLs: [`./assets/official/northgwinnett_black.png`],
+            },
+            {
+                url: `#`,
+                price: 100.00,
+                featured: false,
+                name: `Boys Lacrosse Sticks Black T-Shirt`,
+                imageURLs: [`./assets/official/sticks_blackshirt.png`],
+            },
+            {
+                url: `#`,
+                price: 59.99,
+                featured: false,
+                name: `Boys Lacrosse Team Bag`,
+                imageURLs: [`https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`],
+            },
+            {
+                url: `#`,
+                price: 60.00,
+                featured: false,
+                name: `Lacrosse Team Rain Jacket`,
+                imageURLs: [`https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`],
+            },
+            {
+                url: `#`,
+                price: 80.00,
+                featured: false,
+                name: `Sample Product`,
+                imageURLs: [placeholderImageURL],
+            },
+            {
+                url: `#`,
+                price: 59.99,
+                featured: false,
+                name: `Sample Product`,
+                imageURLs: [placeholderImageURL],
+            },
+            {
+                url: `#`,
+                price: 60.00,
+                featured: false,
+                name: `Sample Product`,
+                imageURLs: [placeholderImageURL],
+            },
+            {
+                url: `#`,
+                price: 60.00,
+                featured: true,
+                name: `Unisex T-Shirt`,
+                imageURLs: [placeholderImageURL],
+            },
+        ]?.map((p, pi) => ({ 
+            ...p, 
+            id: pi + 1, 
+            name: p?.name?.includes(`Sample`) ? `Sample Product ${pi + 1}` : p?.name, 
+        }));
+
+        function numberFormatWithCommas(numberValue, decimalPlaces = maxDecimals) {
+            let numberFormatted = numberValue; 
+            let parsedNumber = typeof numberValue == `string` ? parseFloat(numberValue) : numberValue;
+            let validNumber = !isNaN(parsedNumber);
+            if (validNumber) {
+                let stringNum = parsedNumber?.toLocaleString(`en-US`);
+                let parsedFloat = decimalPlaces > 0 ? parsedNumber?.toFixed(decimalPlaces) : parsedNumber;
+                numberFormatted = parsedNumber > 999 ? stringNum?.includes(`.`) ? stringNum : (stringNum + (decimalPlaces > 0 ? `.00` : ``)) : parsedFloat;
+            }
+            return numberFormatted;
+        }
+
+        function appendProduct(product, container) {
+            let productComponentHTML = `
+                <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``}">
+                    <a href="${product?.url}" class="productLink">
+                        <img class="productImage" src="${product?.imageURLs[0]}" alt="${product?.name}" />
+                        <div class="productDetails">
+                            <h3 class="productName">
+                                ${product?.name}
+                            </h3>
+                            <p class="productPrice">
+                                $${numberFormatWithCommas(product?.price) ?? `0${maxDecimals > 0 ? `.00` : ``}`}
+                            </p>
+                            <div id="paypal-button-container-${product?.id}">
+                                
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `;
+            container.insertAdjacentHTML(`beforeend`, productComponentHTML);
+        }
+
+        function setProducts() {
+            if (productsSection) {
+                productsSection.innerHTML = ``;
+                if (activeTab == `Spiritwear`) {
+                    for (let i = 0; i < products.length; i++) {
+                        let prod = products[i];
+                        if (prod) {
+                            appendProduct(prod, productsSection);
+                        }
+                    }
+                } else {
+                    productsSection.innerHTML = `
+                        <div class="product productLoading">
+                            <i>Sponsorship Tab</i>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function setFooterDynamicCopyrightYear() {
+            if (spiritwear_footer_copyright_year) {
+                spiritwear_footer_copyright_year.innerHTML = new Date().getFullYear();
+            }
+        }
+
+        setProducts();
+        setNavTabs();
+        setFooterDynamicCopyrightYear();
     </script>
 
 
