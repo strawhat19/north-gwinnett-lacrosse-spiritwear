@@ -93,13 +93,14 @@
             background-size: cover;
             background-position: 50% 50%;
             background-repeat: repeat-y !important;
-            background: url(./assets/girl_lacrosse_run_2.jpg);
+            background: url(https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/girl_lacrosse_run_2.jpg);
         }
         .products {
             gap: 1.5rem;
             padding: 2rem;
             display: grid;
             min-height: 600px;
+            /* grid-template-columns: repeat(4, 1fr); */
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         }
         .product {
@@ -116,12 +117,17 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         .product.featured {
-            grid-column: 5/1;
+            grid-column: 1 / -1;
         }
         .product img {
+            width: 100%;
+            height: 100%;
             max-width: 100%;
             border-radius: 5px;
             object-fit: scale-down;
+        }
+        .product.sample img {
+            object-fit: cover;
         }
         .product h3 {
             margin: 0.5rem 0;
@@ -297,6 +303,41 @@
                 url: `#`,
                 price: 100.00,
                 featured: false,
+                name: `Boys Lacrosse NGHS T-Shirt`,
+                imageURLs: [`https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/official/lacrosse_northgwinnett.png`],
+            },
+            {
+                url: `#`,
+                price: 80.00,
+                featured: false,
+                name: `Boys Lacrosse Vertical Stick T-Shirt`,
+                imageURLs: [`https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/official/lacrosssestick_vertical.png`],
+            },
+            {
+                url: `#`,
+                price: 59.99,
+                featured: false,
+                name: `Boys Lacrosse NGHS Bulldogs T-Shirt`,
+                imageURLs: [`https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/official/NG_bulldogs.png`],
+            },
+            {
+                url: `#`,
+                price: 60.00,
+                featured: false,
+                name: `Boys Lacrosse NGHS Black Bar T-Shirt`,
+                imageURLs: [`https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/official/northgwinnett_black.png`],
+            },
+            {
+                url: `#`,
+                price: 100.00,
+                featured: false,
+                name: `Boys Lacrosse Sticks Black T-Shirt`,
+                imageURLs: [`https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/official/sticks_blackshirt.png`],
+            },
+             {
+                url: `#`,
+                price: 100.00,
+                featured: false,
                 name: `NGHS Lacrosse Team Jacket`,
                 imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/image009%20(1).png`],
             },
@@ -306,41 +347,6 @@
                 featured: false,
                 name: `Girls Lacrosse Team Bag`,
                 imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
-            },
-            {
-                url: `#`,
-                price: 100.00,
-                featured: false,
-                name: `Boys Lacrosse NGHS T-Shirt`,
-                imageURLs: [`./assets/official/lacrosse_northgwinnett.png`],
-            },
-            {
-                url: `#`,
-                price: 80.00,
-                featured: false,
-                name: `Boys Lacrosse Vertical Stick T-Shirt`,
-                imageURLs: [`./assets/official/lacrosssestick_vertical.png`],
-            },
-            {
-                url: `#`,
-                price: 59.99,
-                featured: false,
-                name: `Boys Lacrosse NGHS Bulldogs T-Shirt`,
-                imageURLs: [`./assets/official/NG_bulldogs.png`],
-            },
-            {
-                url: `#`,
-                price: 60.00,
-                featured: false,
-                name: `Boys Lacrosse NGHS Black Bar T-Shirt`,
-                imageURLs: [`./assets/official/northgwinnett_black.png`],
-            },
-            {
-                url: `#`,
-                price: 100.00,
-                featured: false,
-                name: `Boys Lacrosse Sticks Black T-Shirt`,
-                imageURLs: [`./assets/official/sticks_blackshirt.png`],
             },
             {
                 url: `#`,
@@ -388,6 +394,7 @@
             ...p, 
             id: pi + 1, 
             name: p?.name?.includes(`Sample`) ? `Sample Product ${pi + 1}` : p?.name, 
+            extraClasses: p?.imageURLs?.includes(placeholderImageURL) ? `sample` : ``,
         }));
 
         function numberFormatWithCommas(numberValue, decimalPlaces = maxDecimals) {
@@ -404,7 +411,7 @@
 
         function appendProduct(product, container) {
             let productComponentHTML = `
-                <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``}">
+                <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
                     <a href="${product?.url}" class="productLink">
                         <img class="productImage" src="${product?.imageURLs[0]}" alt="${product?.name}" />
                         <div class="productDetails">
