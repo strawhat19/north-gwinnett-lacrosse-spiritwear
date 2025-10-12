@@ -19,6 +19,9 @@
             box-sizing: border-box;
             font-family: 'Oswald', sans-serif;
         }
+        body {
+            max-width: 1170px;
+        }
         h1, h2, h3, h4, h5, h6 {
             color: #d72327;     
             font-weight: 500;
@@ -94,6 +97,9 @@
             background-position: 50% 50%;
             background-repeat: repeat-y !important;
             background: url(https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/girl_lacrosse_run_2.jpg);
+        }
+        .productsContainer table, .productsContainer select {
+            width: 100%;
         }
         .products {
             gap: 1.5rem;
@@ -243,6 +249,7 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" integrity="sha256-ihAoc6M/JPfrIiIeayPE9xjin4UWjsx2mjW/rtmxLM4=" crossorigin="anonymous"></script>
+    <!-- <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script> -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
     <script>
@@ -252,10 +259,10 @@
                 url: `#`,
                 name: `Spiritwear`,
             },
-            {
-                url: `#`,
-                name: `Sponsorship`,
-            }
+            // {
+            //     url: `#`,
+            //     name: `Sponsorship`,
+            // }
         ]?.map((nt, nti) => ({ 
             ...nt, 
             id: nti + 1, 
@@ -295,6 +302,40 @@
             })
         }
 
+        let productForms = {
+            Boys_Lacrosse_NGHS_T_Shirt: `
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="hosted_button_id" value="5ZMCU8LKWQ6QE" />
+                    <table>
+                        <tr>
+                        <td>
+                            <input type="hidden" name="on0" value="Size"/>
+                            
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>
+                            <select name="os0">
+                            <option value="Small">
+                                Small $100.00 USD
+                            </option>
+                            <option value="Medium">
+                                Medium $105.00 USD
+                            </option>
+                            <option value="Large">
+                                Large $110.00 USD
+                            </option>
+                            </select>
+                        </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="currency_code" value="USD" />
+                    <input style="margin-top: 5px" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Add to Cart" />
+                </form>            
+            `,
+        }
+
         let maxDecimals = 2;
         let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
 
@@ -303,6 +344,7 @@
                 url: `#`,
                 price: 100.00,
                 featured: false,
+                id: `Boys_Lacrosse_NGHS_T_Shirt`,
                 name: `Boys Lacrosse NGHS T-Shirt`,
                 imageURLs: [`https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/official/lacrosse_northgwinnett.png`],
             },
@@ -392,10 +434,21 @@
             },
         ]?.map((p, pi) => ({ 
             ...p, 
-            id: pi + 1, 
+            id: p?.id ? p?.id : pi + 1, 
             name: p?.name?.includes(`Sample`) ? `Sample Product ${pi + 1}` : p?.name, 
             extraClasses: p?.imageURLs?.includes(placeholderImageURL) ? `sample` : ``,
         }));
+
+        function setProductForm(productID) {
+            let productForm = productForms[productID];
+            if (productForm) {
+                let container = document.querySelector(`#paypal-button-container-${productID}`);
+                if (container) {
+                    container.innerHTML = ``;
+                    container.insertAdjacentHTML(`beforeend`, productForm);
+                }
+            }
+        }
 
         function numberFormatWithCommas(numberValue, decimalPlaces = maxDecimals) {
             let numberFormatted = numberValue; 
@@ -418,12 +471,9 @@
                             <h3 class="productName">
                                 ${product?.name}
                             </h3>
-                            <p class="productPrice">
+                            <p id="paypal-button-container-${product?.id}" class="productPrice">
                                 $${numberFormatWithCommas(product?.price) ?? `0${maxDecimals > 0 ? `.00` : ``}`}
                             </p>
-                            <div id="paypal-button-container-${product?.id}">
-                                
-                            </div>
                         </div>
                     </a>
                 </div>
@@ -433,15 +483,19 @@
 
         function setProducts() {
             if (productsSection) {
-                productsSection.innerHTML = ``;
                 if (activeTab == `Spiritwear`) {
-                    for (let i = 0; i < products.length; i++) {
-                        let prod = products[i];
-                        if (prod) {
-                            appendProduct(prod, productsSection);
+                    if (!window.location.href.includes(`/edit`)) {
+                        productsSection.innerHTML = ``;
+                        for (let i = 0; i < products.length; i++) {
+                            let prod = products[i];
+                            if (prod) {
+                                appendProduct(prod, productsSection);
+                                setProductForm(prod?.id);
+                            }
                         }
                     }
                 } else {
+                    productsSection.innerHTML = ``;
                     productsSection.innerHTML = `
                         <div class="product productLoading">
                             <i>Sponsorship Tab</i>
