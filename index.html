@@ -328,14 +328,6 @@
                 url: `#`,
                 price: 8.00,
                 featured: false,
-                id: `Boys_Lacrosse_NGHS_Bulldogs_T_Shirt`,
-                name: `Boys Lacrosse NGHS Bulldogs T-Shirt`,
-                imageURLs: [`${githubPhotosURL}/assets/official/NG_bulldogs_white.png`],
-            },
-            {
-                url: `#`,
-                price: 8.00,
-                featured: false,
                 id: `Boys_Lacrosse_NGHS_Black_Bar_T_Shirt`,
                 name: `Boys Lacrosse NGHS Black Bar T-Shirt`,
                 imageURLs: [`${githubPhotosURL}/assets/official/northgwinnett_black_bar_white.png`],
@@ -343,10 +335,18 @@
             {
                 url: `#`,
                 price: 8.95,
-                featured: true,
+                featured: false,
                 id: `Boys_Lacrosse_Sticks_T_Shirt`,
                 name: `Boys Lacrosse Sticks T-Shirt`,
                 imageURLs: [`${githubPhotosURL}/assets/official/lacrosse_sticks_shirt_white.png`],
+            },
+            {
+                url: `#`,
+                price: 8.00,
+                featured: true,
+                id: `Boys_Lacrosse_NGHS_Bulldogs_T_Shirt`,
+                name: `Boys Lacrosse NGHS Bulldogs T-Shirt`,
+                imageURLs: [`${githubPhotosURL}/assets/official/NG_bulldogs_white.png`],
             },
             {
                 url: `#`,
@@ -393,9 +393,10 @@
             let productImageElement = document.querySelector(`#productImage_${productID}`);
             if (productImageElement) {
                 let productImageURL = productImageElement?.src;
-                let [currentImageColor] = productImageURL?.split(`_`)?.pop()?.split(`.`);
+                let currentImageColorImage = productImageURL?.split(`_`)?.pop();
+                let [currentImageColor] = currentImageColorImage.split(`.`);
                 if (optionColor?.toLowerCase() != currentImageColor?.toLowerCase()) {
-                    let newImageURL = productImageURL?.replaceAll(currentImageColor, optionColor);
+                    let newImageURL = productImageURL?.replaceAll(currentImageColorImage, optionColor + `.png`);
                     productImageElement.src = newImageURL;
                 }
             }
