@@ -158,7 +158,11 @@
             transition: var(--transition-5s);
         }
         .product a h3 {
+            margin-left: auto;
+            margin-right: auto;
             position: relative;
+            text-align: center;
+            max-width: fit-content;
             transition: var(--transition-5s);
         }
         .product a h3::before {
@@ -199,6 +203,7 @@
             background: #111;
             text-align: center;
         }
+        .cursorPointer { cursor: pointer; }
         .hoverLink {
             position: relative;
             transition: var(--transition);
@@ -261,24 +266,28 @@
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
     <script>
+        let maxDecimals = 2;
         let activeTab = `Spiritwear`;
-        let navTabs = [
-            {
-                url: `#`,
-                name: `Spiritwear`,
-            },
-            // {
-            //     url: `#`,
-            //     name: `Sponsorship`,
-            // }
-        ]?.map((nt, nti) => ({ 
-            ...nt, 
-            id: nti + 1, 
-        }));
+        let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
+        let navTabs = [{ url: `#`, name: `Spiritwear` }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
+
+        function onNavTabClick(e) {
+            let ntName = e?.target?.title;
+            if (ntName?.toLowerCase() != activeTab?.toLowerCase()) {
+                activeTab = ntName;
+                setNavTabs();
+                setProducts();
+            }
+        }
 
         function appendNavTab(navTab, container) {
             let navTabHTML = `
-                <a id="navtab_${navTab?.id}" href="${navTab?.url}" title="${navTab?.name}" class="navTabLink hoverLink ${navTab?.name == activeTab ? `activeTabLink` : ``}">
+                <a  
+                    title="${navTab?.name}" 
+                    id="navtab_${navTab?.id}" 
+                    onclick="onNavTabClick(event)"
+                    class="navTabLink cursorPointer hoverLink ${navTab?.name == activeTab ? `activeTabLink` : ``}"
+                >
                     ${navTab?.name}
                 </a>
             `;
@@ -294,267 +303,8 @@
                         appendNavTab(navTb, spiritwear_nav);
                     }
                 }
-                startNavTabListeners();
             }
         }
-
-        function startNavTabListeners() {
-            let navTabLinks = document.querySelectorAll(`.navTabLink`);
-            navTabLinks.forEach(nt => {
-                nt.onclick = (e) => {
-                    let ntName = e?.target?.title;
-                    activeTab = ntName;
-                    setNavTabs();
-                    setProducts();
-                }
-            })
-        }
-
-        let productForms = {
-            Boys_Lacrosse_NGHS_T_Shirt: `
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="5ZMCU8LKWQ6QE" />
-                    <table>
-                        <tr>
-                        <td>
-                            <input type="hidden" name="on0" value="Size &amp; Color"/>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <select name="os0">
-                            <option value="S, M, L, X Large White">
-                                S, M, L, X Large White - $8.00 USD
-                            </option>
-                            <option value="XX Large White">
-                                XX Large White - $10.25 USD
-                            </option>
-                            <option value="XXX Large White">
-                                XXX Large White - $11.00 USD
-                            </option>
-                            <option value="S, M, L, X Large Grey">
-                                S, M, L, X Large Grey - $8.50 USD
-                            </option>
-                            <option value="XX Large Grey">
-                                XX Large Grey - $10.75 USD
-                            </option>
-                            <option value="XXX Large Grey">
-                                XXX Large Grey - $11.50 USD
-                            </option>
-                            <option value="S, M, L, X Large Black/Red">
-                                S, M, L, X Large Black/Red - $8.95 USD
-                            </option>
-                            <option value="XX Large Black/Red">
-                                XX Large Black/Red - $11.20 USD
-                            </option>
-                            <option value="XXX Large Black/Red">
-                                XXX Large Black/Red - $11.95 USD
-                            </option>
-                            </select>
-                        </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Add to Cart" />
-                </form>            
-            `,
-            Boys_Lacrosse_Vertical_Stick_T_Shirt: `
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="FY3UDUG6XYZV6" />
-                    <table>
-                        <tr>
-                        <td>
-                            <input type="hidden" name="on0" value="Size &amp; Color"/>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <select name="os0">
-                            <option value="S, M, L, X Large White">
-                                S, M, L, X Large White - $8.00 USD
-                            </option>
-                            <option value="XX Large White">
-                                XX Large White - $10.25 USD
-                            </option>
-                            <option value="XXX Large White">
-                                XXX Large White - $11.00 USD
-                            </option>
-                            <option value="S, M, L, X Large Grey">
-                                S, M, L, X Large Grey - $8.50 USD
-                            </option>
-                            <option value="XX Large Grey">
-                                XX Large Grey - $10.75 USD
-                            </option>
-                            <option value="XXX Large Grey">
-                                XXX Large Grey - $11.50 USD
-                            </option>
-                            <option value="S, M, L, X Large Black/Red">
-                                S, M, L, X Large Black/Red - $8.95 USD
-                            </option>
-                            <option value="XX Large Black/Red">
-                                XX Large Black/Red - $11.20 USD
-                            </option>
-                            <option value="XXX Large Black/Red">
-                                XXX Large Black/Red - $11.95 USD
-                            </option>
-                            </select>
-                        </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Add to Cart" />
-                </form>
-            `,
-            Boys_Lacrosse_NGHS_Bulldogs_T_Shirt: `
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="9USFGBC9UL4H2" />
-                    <table>
-                        <tr>
-                        <td>
-                            <input type="hidden" name="on0" value="Size &amp; Color"/>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <select name="os0">
-                            <option value="S, M, L, X Large White">
-                                S, M, L, X Large White - $8.00 USD
-                            </option>
-                            <option value="XX Large White">
-                                XX Large White - $10.25 USD
-                            </option>
-                            <option value="XXX Large White">
-                                XXX Large White - $11.00 USD
-                            </option>
-                            <option value="S, M, L, X Large Grey">
-                                S, M, L, X Large Grey - $8.50 USD
-                            </option>
-                            <option value="XX Large Grey">
-                                XX Large Grey - $10.75 USD
-                            </option>
-                            <option value="XXX Large Grey">
-                                XXX Large Grey - $11.50 USD
-                            </option>
-                            <option value="S, M, L, X Large Black/Red">
-                                S, M, L, X Large Black/Red - $8.95 USD
-                            </option>
-                            <option value="XX Large Black/Red">
-                                XX Large Black/Red - $11.20 USD
-                            </option>
-                            <option value="XXX Large Black/Red">
-                                XXX Large Black/Red - $11.95 USD
-                            </option>
-                            </select>
-                        </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Add to Cart" />
-                </form>
-            `,
-            Boys_Lacrosse_NGHS_Black_Bar_T_Shirt: `
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="5KBV7BR3UFLBW" />
-                    <table>
-                        <tr>
-                        <td>
-                            <input type="hidden" name="on0" value="Size &amp; Color"/>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <select name="os0">
-                            <option value="S, M, L, X Large White">
-                                S, M, L, X Large White - $8.00 USD
-                            </option>
-                            <option value="XX Large White">
-                                XX Large White - $10.25 USD
-                            </option>
-                            <option value="XXX Large White">
-                                XXX Large White - $11.00 USD
-                            </option>
-                            <option value="S, M, L, X Large Grey">
-                                S, M, L, X Large Grey - $8.50 USD
-                            </option>
-                            <option value="XX Large Grey">
-                                XX Large Grey - $10.75 USD
-                            </option>
-                            <option value="XXX Large Grey">
-                                XXX Large Grey - $11.50 USD
-                            </option>
-                            <option value="S, M, L, X Large Black/Red">
-                                S, M, L, X Large Black/Red - $8.95 USD
-                            </option>
-                            <option value="XX Large Black/Red">
-                                XX Large Black/Red - $11.20 USD
-                            </option>
-                            <option value="XXX Large Black/Red">
-                                XXX Large Black/Red - $11.95 USD
-                            </option>
-                            </select>
-                        </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Add to Cart" />
-                </form>
-            `,
-            Boys_Lacrosse_Sticks_T_Shirt: `
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="BABPTQN2BPLN4" />
-                    <table>
-                        <tr>
-                        <td>
-                            <input type="hidden" name="on0" value="Size &amp; Color"/>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <select name="os0">
-                            <option value="S, M, L, X Large White">
-                                S, M, L, X Large White - $8.00 USD
-                            </option>
-                            <option value="XX Large White">
-                                XX Large White - $10.25 USD
-                            </option>
-                            <option value="XXX Large White">
-                                XXX Large White - $11.00 USD
-                            </option>
-                            <option value="S, M, L, X Large Grey">
-                                S, M, L, X Large Grey - $8.50 USD
-                            </option>
-                            <option value="XX Large Grey">
-                                XX Large Grey - $10.75 USD
-                            </option>
-                            <option value="XXX Large Grey">
-                                XXX Large Grey - $11.50 USD
-                            </option>
-                            <option value="S, M, L, X Large Black/Red">
-                                S, M, L, X Large Black/Red - $8.95 USD
-                            </option>
-                            <option value="XX Large Black/Red">
-                                XX Large Black/Red - $11.20 USD
-                            </option>
-                            <option value="XXX Large Black/Red">
-                                XXX Large Black/Red - $11.95 USD
-                            </option>
-                            </select>
-                        </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Add to Cart" />
-                </form>
-            `,
-        }
-
-        let maxDecimals = 2;
-        let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
 
         let products = [
             {
@@ -597,19 +347,19 @@
                 name: `Boys Lacrosse Sticks T-Shirt`,
                 imageURLs: [`https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/official/sticks_blackshirt.png`],
             },
-             {
-                url: `#`,
-                price: 60.00,
-                featured: false,
-                name: `NGHS Lacrosse Team Jacket`,
-                imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/image009%20(1).png`],
-            },
             {
                 url: `#`,
                 price: 25.00,
                 featured: false,
                 name: `Girls Lacrosse Team Bag`,
                 imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
+            },
+             {
+                url: `#`,
+                price: 60.00,
+                featured: false,
+                name: `NGHS Lacrosse Team Jacket`,
+                imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/image009%20(1).png`],
             },
             {
                 url: `#`,
@@ -625,19 +375,73 @@
                 name: `Sample Product`,
                 imageURLs: [placeholderImageURL],
             },
-            // {
-            //     url: `#`,
-            //     price: 59.99,
-            //     featured: false,
-            //     name: `Boys Lacrosse Team Bag`,
-            //     imageURLs: [`https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`],
-            // },
         ]?.map((p, pi) => ({ 
             ...p, 
             id: p?.id ? p?.id : pi + 1, 
             name: p?.name?.includes(`Sample`) ? `Sample Product ${pi + 1}` : p?.name, 
             extraClasses: p?.imageURLs?.includes(placeholderImageURL) ? `sample` : ``,
         }));
+
+        function generateTShirtForm(formID, inputValue) {
+            let formHTML = `
+                <form id="${formID}" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="hosted_button_id" value="${inputValue}" />
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="on0" value="Size &amp; Color"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="os0">
+                                    <option value="S, M, L, X Large White">
+                                        S, M, L, X Large White - $8.00 USD
+                                    </option>
+                                    <option value="XX Large White">
+                                        XX Large White - $10.25 USD
+                                    </option>
+                                    <option value="XXX Large White">
+                                        XXX Large White - $11.00 USD
+                                    </option>
+                                    <option value="S, M, L, X Large Grey">
+                                        S, M, L, X Large Grey - $8.50 USD
+                                    </option>
+                                    <option value="XX Large Grey">
+                                        XX Large Grey - $10.75 USD
+                                    </option>
+                                    <option value="XXX Large Grey">
+                                        XXX Large Grey - $11.50 USD
+                                    </option>
+                                    <option value="S, M, L, X Large Black/Red">
+                                        S, M, L, X Large Black/Red - $8.95 USD
+                                    </option>
+                                    <option value="XX Large Black/Red">
+                                        XX Large Black/Red - $11.20 USD
+                                    </option>
+                                    <option value="XXX Large Black/Red">
+                                        XXX Large Black/Red - $11.95 USD
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="currency_code" value="USD" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Add to Cart" />
+                </form>            
+            `;
+
+            return formHTML;
+        }
+
+        let productForms = {
+            Boys_Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Boys_Lacrosse_NGHS_T_Shirt`, `5ZMCU8LKWQ6QE`),
+            Boys_Lacrosse_Vertical_Stick_T_Shirt: generateTShirtForm(`Boys_Lacrosse_Vertical_Stick_T_Shirt`, `FY3UDUG6XYZV6`),
+            Boys_Lacrosse_NGHS_Bulldogs_T_Shirt: generateTShirtForm(`Boys_Lacrosse_NGHS_Bulldogs_T_Shirt`, `9USFGBC9UL4H2`),
+            Boys_Lacrosse_NGHS_Black_Bar_T_Shirt: generateTShirtForm(`Boys_Lacrosse_NGHS_Black_Bar_T_Shirt`, `5KBV7BR3UFLBW`),
+            Boys_Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Boys_Lacrosse_Sticks_T_Shirt`, `BABPTQN2BPLN4`),
+        }
 
         function setProductForm(productID) {
             let productForm = productForms[productID];
@@ -665,7 +469,7 @@
         function appendProduct(product, container) {
             let productComponentHTML = `
                 <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
-                    <a href="${product?.url}" class="productLink">
+                    <a class="productLink">
                         <img class="productImage" src="${product?.imageURLs[0]}" alt="${product?.name}" />
                         <div class="productDetails">
                             <h3 class="productName">
