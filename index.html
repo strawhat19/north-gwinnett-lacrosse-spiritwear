@@ -383,11 +383,29 @@
             extraClasses: p?.imageURLs?.includes(placeholderImageURL) ? `sample` : ``,
         }));
 
-        function generateTShirtForm(formID, inputValue) {
+        function onShirtFormInput(e) {
+            let optionValue = e?.target?.value?.toLowerCase();
+            let [optionColor] = optionValue?.split(` `)?.pop()?.split(`/`);
+            let productID = e?.target?.id?.replaceAll(`_options_dropwdown`, ``);
+
+            if (productID == `Boys_Lacrosse_NGHS_Bulldogs_T_Shirt`) return;
+
+            let productImageElement = document.querySelector(`#productImage_${productID}`);
+            if (productImageElement) {
+                let productImageURL = productImageElement?.src;
+                let [currentImageColor] = productImageURL?.split(`_`)?.pop()?.split(`.`);
+                if (optionColor?.toLowerCase() != currentImageColor?.toLowerCase()) {
+                    let newImageURL = productImageURL?.replaceAll(currentImageColor, optionColor);
+                    productImageElement.src = newImageURL;
+                }
+            }
+        }
+
+        function generateTShirtForm(formID, paypalFormID) {
             let formHTML = `
-                <form id="${formID}" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <form oninput="onShirtFormInput(event)" id="${formID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
                     <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="${inputValue}" />
+                    <input type="hidden" name="hosted_button_id" value="${paypalFormID}" />
                     <table>
                         <tr>
                             <td>
@@ -396,32 +414,32 @@
                         </tr>
                         <tr>
                             <td>
-                                <select name="os0">
-                                    <option value="S, M, L, X Large White">
+                                <select id="${formID}_options_dropwdown" class="shirt_options_dropwdown" name="os0">
+                                    <option class="white_shirt_option" value="S, M, L, X Large White">
                                         S, M, L, X Large White - $8.00 USD
                                     </option>
-                                    <option value="XX Large White">
+                                    <option class="white_shirt_option" value="XX Large White">
                                         XX Large White - $10.25 USD
                                     </option>
-                                    <option value="XXX Large White">
+                                    <option class="white_shirt_option" value="XXX Large White">
                                         XXX Large White - $11.00 USD
                                     </option>
-                                    <option value="S, M, L, X Large Grey">
+                                    <option class="grey_shirt_option" value="S, M, L, X Large Grey">
                                         S, M, L, X Large Grey - $8.50 USD
                                     </option>
-                                    <option value="XX Large Grey">
+                                    <option class="grey_shirt_option" value="XX Large Grey">
                                         XX Large Grey - $10.75 USD
                                     </option>
-                                    <option value="XXX Large Grey">
+                                    <option class="grey_shirt_option" value="XXX Large Grey">
                                         XXX Large Grey - $11.50 USD
                                     </option>
-                                    <option value="S, M, L, X Large Black/Red">
+                                    <option class="black_red_shirt_option" value="S, M, L, X Large Black/Red">
                                         S, M, L, X Large Black/Red - $8.95 USD
                                     </option>
-                                    <option value="XX Large Black/Red">
+                                    <option class="black_red_shirt_option" value="XX Large Black/Red">
                                         XX Large Black/Red - $11.20 USD
                                     </option>
-                                    <option value="XXX Large Black/Red">
+                                    <option class="black_red_shirt_option" value="XXX Large Black/Red">
                                         XXX Large Black/Red - $11.95 USD
                                     </option>
                                 </select>
@@ -471,7 +489,7 @@
             let productComponentHTML = `
                 <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
                     <a class="productLink">
-                        <img class="productImage" src="${product?.imageURLs[0]}" alt="${product?.name}" />
+                        <img id="productImage_${product?.id}" class="productImage" src="${product?.imageURLs[0]}" alt="${product?.name}" />
                         <div class="productDetails">
                             <h3 class="productName">
                                 ${product?.name}
