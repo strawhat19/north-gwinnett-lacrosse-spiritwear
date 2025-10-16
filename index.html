@@ -94,7 +94,9 @@
             transition: var(--transition-5s);
         }
         .productsContainer {
+            container-name: main;
             background-size: cover;
+            container-type: inline-size;
             background-position: 50% 50%;
             background-repeat: repeat-y !important;
             background: url(https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/girl_lacrosse_run_2.jpg);
@@ -117,8 +119,10 @@
             padding: 2rem;
             display: grid;
             min-height: 600px;
+            container-name: products;
+            container-type: inline-size;
             /* grid-template-columns: repeat(4, 1fr); */
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(243px, 1fr));
         }
         .product {
             padding: 1rem;
@@ -152,8 +156,8 @@
         .product h3 {
             margin: 0.5rem 0;
         }
-        .product:not(.featured) h3 {
-            font-size: 21px;
+        .standardProductName {
+            font-size: 20px;
         }
         .product p, .paypalFieldsContainer, .productPriceInner {
             color: #666;
@@ -258,9 +262,19 @@
             transform: scale(1, 1);
             transition: var(--transition);
         }
+        @container main (min-width: 800px) and (max-width: 1140px) {
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
         @container product (max-width: 300px) {
             img {
                 max-height: 215px;
+            }
+        }
+        @container product (max-width: 243px) {
+            .standardProductName {
+                font-size: 18px;
             }
         }
     </style>
@@ -546,7 +560,7 @@
                     <a class="productLink">
                         <img id="productImage_${product?.id}" class="productImage" src="${product?.imageURLs[0]}" alt="${product?.name}" />
                         <div class="productDetails">
-                            <h3 class="productName">
+                            <h3 class="productName ${product?.featured ? `featuredName` : `standardProductName`}">
                                 ${product?.name}
                             </h3>
                             <div id="paypal-button-container-${product?.id}" class="paypalFieldsContainer productPrice">
