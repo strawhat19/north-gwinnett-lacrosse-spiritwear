@@ -58,6 +58,7 @@
     <style>
         :root {
           --main: #d72327;
+          --paypal-yellow: #ffd140;
           --transition: 0.24s cubic-bezier(0.77, 0.2, 0.05, 1);  
           --transition-5s: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);  
         }
@@ -100,11 +101,16 @@
         }
         .productsContainer select {
             width: 100%;
+            color: black;
             margin-top: 10px;
+            background: rgba(240, 240, 240, 1);
         }
-        .productsContainer table {
+        .productsContainer .formFieldsContainer {
+            gap: 10px;
             width: 100%;
-            margin-bottom: 10px;
+            display: grid;
+            margin-bottom: 12px;
+            grid-template-columns: repeat(2, 1fr);
         }
         .products {
             gap: 1.5rem;
@@ -124,7 +130,7 @@
             backdrop-filter: blur(5px);
             container-type: inline-size;
             transition: var(--transition-5s);
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 1);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         .product.featured {
@@ -146,8 +152,30 @@
         .product h3 {
             margin: 0.5rem 0;
         }
-        .product p {
+        .product:not(.featured) h3 {
+            font-size: 21px;
+        }
+        .product p, .paypalFieldsContainer, .productPriceInner {
             color: #666;
+        }
+        .addToCartButton {
+            width: 100%;
+            grid-gap: 3px;
+            display: flex;
+            color: black;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            border: none !important;
+            background: var(--paypal-yellow);
+        }
+        .paypalBadge {
+            top: 2px;
+            padding-right: 5px;
+            position: relative;
+            /* transform: scale(1.75); */
+            max-height: 15px !important;
+            max-width: fit-content !important;
         }
         .product a {
             height: 100%;
@@ -268,8 +296,10 @@
     <script>
         let maxDecimals = 2;
         let activeTab = `Spiritwear`;
+        let shopURL = `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
         let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
         let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main`;
+        let photosURL = window.location.href.includes(`index`) ? `` : githubPhotosURL;
         let navTabs = [{ url: `#`, name: `Spiritwear` }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
 
         function onNavTabClick(e) {
@@ -310,68 +340,68 @@
         let products = [
             {
                 url: `#`,
-                price: 8.00,
+                price: `11.00`,
                 featured: false,
-                id: `Boys_Lacrosse_NGHS_T_Shirt`,
-                name: `Boys Lacrosse NGHS T-Shirt`,
-                imageURLs: [`${githubPhotosURL}/assets/official/lacrosse_northgwinnett_white.png`],
+                id: `Lacrosse_NGHS_T_Shirt`,
+                name: `Lacrosse NGHS T-Shirt`,
+                imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_red.png`],
             },
             {
                 url: `#`,
-                price: 8.00,
+                price: `11.00`,
                 featured: false,
-                id: `Boys_Lacrosse_Vertical_Stick_T_Shirt`,
-                name: `Boys Lacrosse Vertical Stick T-Shirt`,
-                imageURLs: [`${githubPhotosURL}/assets/official/lacrosssestick_vertical_white.png`],
+                id: `Lacrosse_Vertical_Stick_T_Shirt`,
+                name: `Lacrosse Vertical Stick T-Shirt`,
+                imageURLs: [`${photosURL}/assets/official/lacrosssestick_vertical_red.png`],
             },
             {
                 url: `#`,
-                price: 8.00,
+                price: `11.00`,
                 featured: false,
-                id: `Boys_Lacrosse_NGHS_Black_Bar_T_Shirt`,
-                name: `Boys Lacrosse NGHS Black Bar T-Shirt`,
-                imageURLs: [`${githubPhotosURL}/assets/official/northgwinnett_black_bar_white.png`],
+                id: `Lacrosse_NGHS_Black_Bar_T_Shirt`,
+                name: `Lacrosse NGHS Black Bar T-Shirt`,
+                imageURLs: [`${photosURL}/assets/official/northgwinnett_black_bar_red.png`],
             },
             {
                 url: `#`,
-                price: 8.95,
+                price: `11.00`,
                 featured: false,
-                id: `Boys_Lacrosse_Sticks_T_Shirt`,
-                name: `Boys Lacrosse Sticks T-Shirt`,
-                imageURLs: [`${githubPhotosURL}/assets/official/lacrosse_sticks_shirt_white.png`],
+                id: `Lacrosse_Sticks_T_Shirt`,
+                name: `Lacrosse Sticks T-Shirt`,
+                imageURLs: [`${photosURL}/assets/official/lacrosse_sticks_shirt_red.png`],
             },
             {
                 url: `#`,
-                price: 8.00,
+                price: `11.00`,
                 featured: true,
-                id: `Boys_Lacrosse_NGHS_Bulldogs_T_Shirt`,
-                name: `Boys Lacrosse NGHS Bulldogs T-Shirt`,
-                imageURLs: [`${githubPhotosURL}/assets/official/NG_bulldogs_white.png`],
+                id: `Lacrosse_NGHS_Bulldogs_T_Shirt`,
+                name: `Lacrosse NGHS Bulldogs T-Shirt`,
+                imageURLs: [`${photosURL}/assets/official/NG_bulldogs_red.png`],
             },
             {
                 url: `#`,
-                price: 25.00,
+                price: `25.00`,
                 featured: false,
                 name: `Girls Lacrosse Team Bag`,
                 imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
             },
              {
                 url: `#`,
-                price: 60.00,
+                price: `60.00`,
                 featured: false,
                 name: `NGHS Lacrosse Team Jacket`,
                 imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/image009%20(1).png`],
             },
             {
                 url: `#`,
-                price: 50.00,
+                price: `50.00`,
                 featured: false,
                 name: `Lacrosse Team Rain Jacket`,
                 imageURLs: [`https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`],
             },
             {
                 url: `#`,
-                price: 10.00,
+                price: `10.00`,
                 featured: false,
                 name: `Sample Product`,
                 imageURLs: [placeholderImageURL],
@@ -384,83 +414,107 @@
         }));
 
         function onShirtFormInput(e) {
-            let optionValue = e?.target?.value?.toLowerCase();
-            let [optionColor] = optionValue?.split(` `)?.pop()?.split(`/`);
-            let productID = e?.target?.id?.replaceAll(`_options_dropwdown`, ``);
+            let trgt = e?.target;
+            let optionValueColor = trgt?.value?.toLowerCase();
+            let isColorSelector = trgt?.className?.includes(`colorSelector`);
 
-            if (productID == `Boys_Lacrosse_NGHS_Bulldogs_T_Shirt`) return;
+            if (!isColorSelector) return;
 
-            let productImageElement = document.querySelector(`#productImage_${productID}`);
-            if (productImageElement) {
-                let productImageURL = productImageElement?.src;
-                let currentImageColorImage = productImageURL?.split(`_`)?.pop();
-                let [currentImageColor] = currentImageColorImage.split(`.`);
-                if (optionColor?.toLowerCase() != currentImageColor?.toLowerCase()) {
-                    let newImageURL = productImageURL?.replaceAll(currentImageColorImage, optionColor + `.png`);
-                    productImageElement.src = newImageURL;
+            let productID = trgt?.id?.replaceAll(`_options_dropdown`, ``);
+            if (productID) {
+                let productImageElement = document.querySelector(`#productImage_${productID}`);
+                if (productImageElement) {
+                    let productImageURL = productImageElement?.src;
+                    let currentImageColorImage = productImageURL?.split(`_`)?.pop();
+                    let [currentImageColor] = currentImageColorImage.split(`.`);
+                    if (optionValueColor?.toLowerCase() != currentImageColor?.toLowerCase()) {
+                        let newImageURL = productImageURL?.replaceAll(currentImageColorImage, optionValueColor + `.png`);
+                        productImageElement.src = newImageURL;
+                    }
                 }
             }
         }
 
-        function generateTShirtForm(formID, paypalFormID) {
+        function generateTShirtForm(productID, paypalFormID) {
+            let product = products.find(p => p?.id == productID);
+
             let formHTML = `
-                <form oninput="onShirtFormInput(event)" id="${formID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="${paypalFormID}" />
-                    <table>
-                        <tr>
-                            <td>
-                                <input type="hidden" name="on0" value="Size &amp; Color"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select id="${formID}_options_dropwdown" class="shirt_options_dropwdown" name="os0">
-                                    <option class="white_shirt_option" value="S, M, L, X Large White">
-                                        S, M, L, X Large White - $8.00 USD
-                                    </option>
-                                    <option class="white_shirt_option" value="XX Large White">
-                                        XX Large White - $10.25 USD
-                                    </option>
-                                    <option class="white_shirt_option" value="XXX Large White">
-                                        XXX Large White - $11.00 USD
-                                    </option>
-                                    <option class="grey_shirt_option" value="S, M, L, X Large Grey">
-                                        S, M, L, X Large Grey - $8.50 USD
-                                    </option>
-                                    <option class="grey_shirt_option" value="XX Large Grey">
-                                        XX Large Grey - $10.75 USD
-                                    </option>
-                                    <option class="grey_shirt_option" value="XXX Large Grey">
-                                        XXX Large Grey - $11.50 USD
-                                    </option>
-                                    <option class="black_red_shirt_option" value="S, M, L, X Large Black/Red">
-                                        S, M, L, X Large Black/Red - $8.95 USD
-                                    </option>
-                                    <option class="black_red_shirt_option" value="XX Large Black/Red">
-                                        XX Large Black/Red - $11.20 USD
-                                    </option>
-                                    <option class="black_red_shirt_option" value="XXX Large Black/Red">
-                                        XXX Large Black/Red - $11.95 USD
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Add to Cart" />
-                </form>            
-            `;
+                <form oninput="onShirtFormInput(event)" id="${productID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+
+                    <input type="hidden" name="shopping_url" value="${shopURL}" />
+                    <input type="hidden" name="return" value="${shopURL}?paid=1" />
+                    <input type="hidden" name="cancel_return" value="${shopURL}?canceled=1" />
+                    <input type="hidden" name="cbt" value="Back to Spiritwear" />
+
+                    <div class="formFieldsContainer">
+                        <input type="hidden" name="on0" value="Size"/>
+                        <select name="os0" class="sizeSelector cursorPointer">
+                            <option value="Small">
+                                Small
+                            </option>
+                            <option value="Medium">
+                                Medium
+                            </option>
+                            <option value="Large">
+                                Large
+                            </option>
+                            <option value="X Large">
+                                X Large
+                            </option>
+                            <option value="XX Large">
+                                XX Large
+                            </option>
+                            <option value="XXX Large">
+                                XXX Large
+                            </option>
+                        </select>
+
+                        <input type="hidden" name="on1" value="Color"/>
+                        <select name="os1" id="${productID}_options_dropdown" class="colorSelector cursorPointer">
+                            <option value="Red">
+                                Red
+                            </option>
+                            <option value="Grey">
+                                Grey
+                            </option>
+                            <option value="Black">
+                                Black
+                            </option>
+                            <option value="White">
+                                White
+                            </option>
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="cmd" value="_cart">
+
+                    <input type="hidden" name="add" value="1">
+                    <input type="hidden" name="business" value="nghslaxbooster@gmail.com">
+                    <input type="hidden" name="item_name" value="${product?.name}">
+                    <input type="hidden" name="amount" value="${product?.price}">
+
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input type="hidden" name="shopping_url" value="${shopURL}">
+                    <input type="hidden" name="return" value="${shopURL}?paid=1">
+                    <input type="hidden" name="cancel_return" value="${shopURL}?canceled=1">
+                    <input type="hidden" name="cbt" value="Back to Spiritwear">
+
+                    <button class="addToCartButton" alt="Add to Cart">
+                        <img class="paypalBadge" src="${photosURL}/assets/graphics/paypal-badge-5.png" alt="Paypal Badge" />
+                        <i>Add to Cart - $${numberFormatWithCommas(product?.price) ?? `0${maxDecimals > 0 ? `.00` : ``}`}</i>
+                    </button>
+                </form> 
+            `;       
 
             return formHTML;
         }
 
         let productForms = {
-            Boys_Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Boys_Lacrosse_NGHS_T_Shirt`, `5ZMCU8LKWQ6QE`),
-            Boys_Lacrosse_Vertical_Stick_T_Shirt: generateTShirtForm(`Boys_Lacrosse_Vertical_Stick_T_Shirt`, `FY3UDUG6XYZV6`),
-            Boys_Lacrosse_NGHS_Bulldogs_T_Shirt: generateTShirtForm(`Boys_Lacrosse_NGHS_Bulldogs_T_Shirt`, `9USFGBC9UL4H2`),
-            Boys_Lacrosse_NGHS_Black_Bar_T_Shirt: generateTShirtForm(`Boys_Lacrosse_NGHS_Black_Bar_T_Shirt`, `5KBV7BR3UFLBW`),
-            Boys_Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Boys_Lacrosse_Sticks_T_Shirt`, `BABPTQN2BPLN4`),
+            Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_T_Shirt`, `5ZMCU8LKWQ6QE`),
+            Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Lacrosse_Sticks_T_Shirt`, `BABPTQN2BPLN4`),
+            Lacrosse_NGHS_Bulldogs_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Bulldogs_T_Shirt`, `9USFGBC9UL4H2`),
+            Lacrosse_Vertical_Stick_T_Shirt: generateTShirtForm(`Lacrosse_Vertical_Stick_T_Shirt`, `FY3UDUG6XYZV6`),
+            Lacrosse_NGHS_Black_Bar_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Black_Bar_T_Shirt`, `5KBV7BR3UFLBW`),
         }
 
         function setProductForm(productID) {
@@ -469,7 +523,7 @@
                 let container = document.querySelector(`#paypal-button-container-${productID}`);
                 if (container) {
                     container.innerHTML = ``;
-                    container.insertAdjacentHTML(`beforeend`, productForm);
+                    container.insertAdjacentHTML(`afterend`, productForm);
                 }
             }
         }
@@ -495,9 +549,9 @@
                             <h3 class="productName">
                                 ${product?.name}
                             </h3>
-                            <p id="paypal-button-container-${product?.id}" class="productPrice">
-                                $${numberFormatWithCommas(product?.price) ?? `0${maxDecimals > 0 ? `.00` : ``}`}
-                            </p>
+                            <div id="paypal-button-container-${product?.id}" class="paypalFieldsContainer productPrice">
+                                <p>$${numberFormatWithCommas(product?.price) ?? `0${maxDecimals > 0 ? `.00` : ``}`}</p>
+                            </div>
                         </div>
                     </a>
                 </div>
