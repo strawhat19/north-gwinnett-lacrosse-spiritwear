@@ -20,7 +20,7 @@
             font-family: 'Oswald', sans-serif;
         }
         body {
-            max-width: 1170px;
+            max-width: 1140px;
         }
         h1, h2, h3, h4, h5, h6 {
             color: #d72327;     
@@ -66,7 +66,6 @@
             margin-top: 0 !important;
         }
         body {
-            width: 89%;
             color: #333;
             margin: 0 auto;
             background: #f8f8f8;
@@ -262,9 +261,15 @@
             transform: scale(1, 1);
             transition: var(--transition);
         }
-        @container main (min-width: 800px) and (max-width: 1140px) {
-            .products {
-                grid-template-columns: repeat(2, 1fr);
+        @container main (min-width: 796px) and (max-width: 1056px) {
+            .product.featured {
+                grid-column: unset;
+            }
+            .product.featured img {
+                max-height: unset;
+            }
+            .product.featured h3 {
+                font-size: 20px;
             }
         }
         @container product (max-width: 300px) {
@@ -273,8 +278,8 @@
             }
         }
         @container product (max-width: 243px) {
-            .standardProductName {
-                font-size: 18px;
+            h3 {
+                font-size: 18px !important;
             }
         }
     </style>
