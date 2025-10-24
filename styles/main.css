@@ -1,0 +1,237 @@
+:root {
+    --main: #d72327;
+    --paypal-yellow: #ffd140;
+    --transition: 0.24s cubic-bezier(0.77, 0.2, 0.05, 1);  
+    --transition-5s: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);  
+}
+.custom-page-content {
+    margin-top: 0 !important;
+}
+body {
+    color: #333;
+    margin: 0 auto;
+    background: #f8f8f8;
+    font-family: Arial, sans-serif;
+}
+#spiritwear_header {
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    background: #111;
+}
+#spiritwear_header h1 {
+    margin: 0;
+}
+#spiritwear_nav {
+    display: flex;
+    padding: 0.5rem;
+    background: #222;
+    justify-content: center;
+}
+#spiritwear_nav a {
+    color: #fff;
+    margin: 0 1rem;
+    text-decoration: none;
+    transition: var(--transition-5s);
+}
+.productsContainer {
+    container-name: main;
+    background-size: cover;
+    container-type: inline-size;
+    background-position: 50% 50%;
+    background-repeat: repeat-y !important;
+    background: url(https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main/assets/girl_lacrosse_run_2.jpg);
+}
+.productsContainer select {
+    width: 100%;
+    color: black;
+    margin-top: 10px;
+    padding-left: 10px;
+    border-radius: 10px;
+    background: rgba(240, 240, 240, 1);
+}
+.productsContainer .formFieldsContainer {
+    gap: 10px;
+    width: 100%;
+    display: grid;
+    margin-bottom: 12px;
+    grid-template-columns: repeat(2, 1fr);
+}
+.products {
+    gap: 1.5rem;
+    padding: 2rem;
+    display: grid;
+    min-height: 600px;
+    container-name: products;
+    container-type: inline-size;
+    grid-template-columns: repeat(auto-fit, minmax(243px, 1fr));
+}
+.product {
+    padding: 1rem;
+    cursor: pointer;
+    min-width: 243px;
+    min-height: 335px;
+    border-radius: 5px;
+    text-align: center;
+    container-name: product;
+    backdrop-filter: blur(5px);
+    container-type: inline-size;
+    transition: var(--transition-5s);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.product.featured {
+    grid-column: 1 / -1;
+}
+.product img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    border-radius: 5px;
+    object-fit: scale-down;
+}
+.product.featured img {
+    max-height: 148px;
+}
+.product.sample img {
+    object-fit: cover;
+}
+.product h3 {
+    margin: 0.5rem 0;
+}
+.standardProductName {
+    font-size: 20px;
+}
+.product p, .paypalFieldsContainer, .productPriceInner {
+    color: #666;
+}
+.addToCartButton {
+    width: 100%;
+    grid-gap: 3px;
+    display: flex;
+    color: black;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    border: none !important;
+    background: var(--paypal-yellow);
+}
+.paypalBadge {
+    top: 2px;
+    padding-right: 5px;
+    position: relative;
+    max-width: 60px !important;
+    max-height: 15px !important;
+}
+.product a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none !important;
+    transition: var(--transition-5s);
+}
+.product a h3 {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    text-align: center;
+    max-width: fit-content;
+    transition: var(--transition-5s);
+}
+.product a h3::before {
+    right: 0;
+    z-index: 0;
+    width: 100%;
+    height: 1px;
+    bottom: -5px;
+    display: block;
+    position: absolute;
+    transform: scale(0, 1);
+    content: "" !important;
+    background: var(--main);
+    transform-origin: 0% 100%;
+    transition: var(--transition-5s);
+}
+.product:hover {
+    background: rgba(255, 255, 255, 0.99);
+}
+.product:hover h3::before {
+    transform: scale(1, 1);
+    transition: var(--transition-5s);
+}
+.productDetails {
+    display: flex;
+    flex-direction: column;
+}
+.productLoading {
+    display: flex;
+    font-size: 2.5rem;
+    align-items: center;
+    pointer-events: none;
+    justify-content: center;
+}
+#spiritwear_footer {
+    color: #fff;
+    padding: 1rem;
+    background: #111;
+    text-align: center;
+}
+.cursorPointer { cursor: pointer; }
+.hoverLink {
+    position: relative;
+    transition: var(--transition);
+    text-decoration: none !important;
+}
+.hoverLink::before {
+    right: 0;
+    z-index: 0;
+    width: 100%;
+    height: 1px;
+    bottom: -5px;
+    display: block;
+    position: absolute;
+    transform: scale(0, 1);
+    content: "" !important;
+    background: var(--main);
+    transform-origin: 0% 100%;
+    transition: var(--transition);
+}
+.activeTabLink::before {
+    transform: scale(1, 1);
+}
+.hoverLink:hover::before {
+    transform: scale(1, 1);
+    transition: var(--transition);
+}
+@media (max-width: 815px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 585px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+}
+@container main (min-width: 796px) and (max-width: 1056px) {
+    .product.featured {
+        grid-column: unset;
+    }
+    .product.featured img {
+        max-height: 215px;
+    }
+    .product.featured h3 {
+        font-size: 20px;
+    }
+}
+@container product (max-width: 300px) {
+    img {
+        max-height: 215px;
+    }
+}
+@container product (max-width: 243px) {
+    h3 {
+        font-size: 18px !important;
+    }
+}
