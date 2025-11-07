@@ -4,6 +4,7 @@ let shopURL = `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
 let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
 let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main`;
 let photosURL = window.location.href.includes(`index`) ? `` : githubPhotosURL;
+let placeholderImageURL_nghs = `${photosURL}/assets/official/icons/bulldog_icon_opt.png`;
 let navTabs = [{ url: `#`, name: `Spiritwear` }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
 
 function onNavTabClick(e) {
@@ -46,6 +47,7 @@ let products = [
         url: `#`,
         price: `16.00`,
         featured: false,
+        usePlaceholder: false,
         id: `Lacrosse_NGHS_T_Shirt`,
         name: `Lacrosse NGHS T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
@@ -54,6 +56,7 @@ let products = [
         url: `#`,
         price: `16.00`,
         featured: false,
+        usePlaceholder: false,
         id: `Lacrosse_Vertical_Stick_T_Shirt`,
         name: `Lacrosse Vertical Stick T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/lacrosssestick_vertical_black.png`],
@@ -62,6 +65,7 @@ let products = [
         url: `#`,
         price: `16.00`,
         featured: false,
+        usePlaceholder: false,
         id: `Lacrosse_NGHS_Black_Bar_T_Shirt`,
         name: `Lacrosse NGHS Black Bar T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/northgwinnett_black_bar_black.png`],
@@ -70,6 +74,7 @@ let products = [
         url: `#`,
         price: `16.00`,
         featured: false,
+        usePlaceholder: false,
         id: `Lacrosse_Sticks_T_Shirt`,
         name: `Lacrosse Sticks T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/lacrosse_sticks_shirt_black.png`],
@@ -78,6 +83,7 @@ let products = [
         url: `#`,
         price: `16.00`,
         featured: false,
+        usePlaceholder: false,
         id: `Lacrosse_NGHS_Bulldogs_T_Shirt`,
         name: `Lacrosse NGHS Bulldogs T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/NG_bulldogs_black.png`],
@@ -86,6 +92,7 @@ let products = [
         url: `#`,
         price: `16.00`,
         featured: false,
+        usePlaceholder: true,
         id: `Lacrosse_Tank_Top`,
         name: `Lacrosse Tank Top`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_tank_top_black.png`],
@@ -94,6 +101,7 @@ let products = [
         url: `#`,
         price: `25.00`,
         featured: false,
+        usePlaceholder: true,
         id: `Lacrosse_Crewneck_Sweatshirt`,
         name: `Lacrosse Crewneck Sweatshirt`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_crewneck_sweatshirt_black.png`],
@@ -102,6 +110,7 @@ let products = [
         url: `#`,
         price: `30.00`,
         featured: false,
+        usePlaceholder: true,
         id: `Lacrosse_Hoodie_Sweatshirt`,
         name: `Lacrosse Hoodie Sweatshirt`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_hoodie_sweatshirt_black.png`],
@@ -110,6 +119,7 @@ let products = [
         url: `#`,
         price: `40.00`,
         featured: false,
+        usePlaceholder: true,
         id: `Lacrosse_Jacket_W_Embroidery`,
         name: `Lacrosse Jacket w/ Embroidery`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
@@ -118,6 +128,7 @@ let products = [
         url: `#`,
         price: `100.00`,
         featured: false,
+        usePlaceholder: true,
         id: `Lacrosse_Team_Rain_Jacket`,
         name: `Lacrosse Team Rain Jacket`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_team_rain_jacket_black.png`],
@@ -125,6 +136,7 @@ let products = [
     {
         url: `#`,
         featured: false,
+        usePlaceholder: false,
         price: `108.00 - $116.00`,
         id: `NGHS_Lacrosse_Team_Jacket`,
         name: `NGHS Lacrosse Team Jacket`,
@@ -134,6 +146,7 @@ let products = [
         url: `#`,
         price: `60.00`,
         featured: false,
+        usePlaceholder: false,
         id: `Girls_Lacrosse_Team_Bag`,
         name: `Girls Lacrosse Team Bag`,
         imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
@@ -276,7 +289,7 @@ function appendProduct(product, container) {
     let productComponentHTML = `
         <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
             <a class="productLink">
-                <img id="productImage_${product?.id}" class="productImage" src="${product?.imageURLs[0]}" alt="${product?.name}" />
+                <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImageURL_nghs : product?.imageURLs[0]}" alt="${product?.name}" />
                 <div class="productDetails">
                     <h3 class="productName ${product?.featured ? `featuredName` : `standardProductName`}">
                         ${product?.name}
