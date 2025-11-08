@@ -3,8 +3,9 @@ let activeTab = `Spiritwear`;
 let shopURL = `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
 let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
 let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main`;
+let placeholderImageURL_nghs = `https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png`;
 let photosURL = window.location.href.includes(`index`) ? `` : githubPhotosURL;
-let placeholderImageURL_nghs = `${photosURL}/assets/official/icons/bulldog_icon_opt.png`;
+// let placeholderImageURL_nghs = `${photosURL}/assets/official/icons/bulldog_icon_opt.png`;
 let navTabs = [{ url: `#`, name: `Spiritwear` }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
 
 function onNavTabClick(e) {
@@ -133,15 +134,15 @@ let products = [
         name: `Lacrosse Team Rain Jacket`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_team_rain_jacket_black.png`],
     },
-    {
-        url: `#`,
-        featured: false,
-        usePlaceholder: false,
-        price: `108.00 - $116.00`,
-        id: `NGHS_Lacrosse_Team_Jacket`,
-        name: `NGHS Lacrosse Team Jacket`,
-        imageURLs: [`${photosURL}/assets/opt/lacrosse_team_jacket.png`],
-    },
+    // {
+    //     url: `#`,
+    //     featured: false,
+    //     usePlaceholder: false,
+    //     price: `108.00 - $116.00`,
+    //     id: `NGHS_Lacrosse_Team_Jacket`,
+    //     name: `NGHS Lacrosse Team Jacket`,
+    //     imageURLs: [`${photosURL}/assets/opt/lacrosse_team_jacket.png`],
+    // },
     {
         url: `#`,
         price: `60.00`,
