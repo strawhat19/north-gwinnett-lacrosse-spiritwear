@@ -49,6 +49,7 @@ let products = [
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: true,
         id: `Lacrosse_NGHS_T_Shirt`,
         name: `Lacrosse NGHS T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
@@ -58,6 +59,7 @@ let products = [
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: true,
         id: `Lacrosse_Vertical_Stick_T_Shirt`,
         name: `Lacrosse Vertical Stick T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/lacrosssestick_vertical_black.png`],
@@ -67,6 +69,7 @@ let products = [
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: true,
         id: `Lacrosse_NGHS_Black_Bar_T_Shirt`,
         name: `Lacrosse NGHS Black Bar T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/northgwinnett_black_bar_black.png`],
@@ -76,6 +79,7 @@ let products = [
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: true,
         id: `Lacrosse_Sticks_T_Shirt`,
         name: `Lacrosse Sticks T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/lacrosse_sticks_shirt_black.png`],
@@ -85,6 +89,7 @@ let products = [
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: true,
         id: `Lacrosse_NGHS_Bulldogs_T_Shirt`,
         name: `Lacrosse NGHS Bulldogs T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/NG_bulldogs_black.png`],
@@ -94,6 +99,7 @@ let products = [
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: false,
         id: `Lacrosse_Tank_Top`,
         name: `Lacrosse Tank Top`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_tank_top_black.png`],
@@ -103,6 +109,7 @@ let products = [
         price: `25.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: false,
         id: `Lacrosse_Crewneck_Sweatshirt`,
         name: `Lacrosse Crewneck Sweatshirt`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_crewneck_sweatshirt_black.png`],
@@ -112,6 +119,7 @@ let products = [
         price: `30.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: false,
         id: `Lacrosse_Hoodie_Sweatshirt`,
         name: `Lacrosse Hoodie Sweatshirt`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_hoodie_sweatshirt_black.png`],
@@ -121,6 +129,7 @@ let products = [
         price: `40.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: false,
         id: `Lacrosse_Jacket_W_Embroidery`,
         name: `Lacrosse Jacket w/ Embroidery`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
@@ -130,6 +139,7 @@ let products = [
         price: `100.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: false,
         id: `Lacrosse_Team_Rain_Jacket`,
         name: `Lacrosse Team Rain Jacket`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_team_rain_jacket_black.png`],
@@ -138,6 +148,7 @@ let products = [
     //     url: `#`,
     //     featured: false,
     //     usePlaceholder: false,
+    //     hasColorOptions: false,
     //     price: `108.00 - $116.00`,
     //     id: `NGHS_Lacrosse_Team_Jacket`,
     //     name: `NGHS Lacrosse Team Jacket`,
@@ -148,6 +159,7 @@ let products = [
         price: `60.00`,
         featured: false,
         usePlaceholder: false,
+        hasColorOptions: false,
         id: `Girls_Lacrosse_Team_Bag`,
         name: `Girls Lacrosse Team Bag`,
         imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
@@ -168,20 +180,25 @@ function onShirtFormInput(e) {
 
     let productID = trgt?.id?.replaceAll(`_options_dropdown`, ``);
     if (productID) {
-        let productImageElement = document.querySelector(`#productImage_${productID}`);
-        if (productImageElement) {
-            let productImageURL = productImageElement?.src;
-            let currentImageColorImage = productImageURL?.split(`_`)?.pop();
-            let [currentImageColor] = currentImageColorImage.split(`.`);
-            if (optionValueColor?.toLowerCase() != currentImageColor?.toLowerCase()) {
-                let newImageURL = productImageURL?.replaceAll(currentImageColorImage, optionValueColor + `.png`);
-                productImageElement.src = newImageURL;
+        let product = products.find(p => p?.id == productID);
+        if (product) {
+            if (product?.hasColorOptions) {
+                let productImageElement = document.querySelector(`#productImage_${productID}`);
+                if (productImageElement) {
+                    let productImageURL = productImageElement?.src;
+                    let currentImageColorImage = productImageURL?.split(`_`)?.pop();
+                    let [currentImageColor] = currentImageColorImage.split(`.`);
+                    if (optionValueColor?.toLowerCase() != currentImageColor?.toLowerCase()) {
+                        let newImageURL = productImageURL?.replaceAll(currentImageColorImage, optionValueColor + `.png`);
+                        productImageElement.src = newImageURL;
+                    }
+                }
             }
         }
     }
 }
 
-function generateTShirtForm(productID, paypalFormID) {
+function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
     let product = products.find(p => p?.id == productID);
 
     let formHTML = `
@@ -192,28 +209,30 @@ function generateTShirtForm(productID, paypalFormID) {
             <input type="hidden" name="cancel_return" value="${shopURL}?canceled=1" />
             <input type="hidden" name="cbt" value="Back to Spiritwear" />
 
-            <div class="formFieldsContainer">
-                <input type="hidden" name="on0" value="Size"/>
-                <select name="os0" class="sizeSelector cursorPointer">
-                    <option value="Small">
-                        Small
-                    </option>
-                    <option value="Medium">
-                        Medium
-                    </option>
-                    <option value="Large">
-                        Large
-                    </option>
-                    <option value="X Large">
-                        X Large
-                    </option>
-                    <option value="XX Large">
-                        XX Large
-                    </option>
-                    <option value="XXX Large">
-                        XXX Large
-                    </option>
-                </select>
+            <div class="formFieldsContainer ${showSizeSelector ? `showSizeSelector` : `noSizeSelector`}">
+                ${showSizeSelector ? `
+                    <input type="hidden" name="on0" value="Size"/>
+                    <select name="os0" class="sizeSelector cursorPointer">
+                        <option value="Small">
+                            Small
+                        </option>
+                        <option value="Medium">
+                            Medium
+                        </option>
+                        <option value="Large">
+                            Large
+                        </option>
+                        <option value="X Large">
+                            X Large
+                        </option>
+                        <option value="XX Large">
+                            XX Large
+                        </option>
+                        <option value="XXX Large">
+                            XXX Large
+                        </option>
+                    </select>    
+                ` : ``}
 
                 <input type="hidden" name="on1" value="Color"/>
                 <select name="os1" id="${productID}_options_dropdown" class="colorSelector cursorPointer">
@@ -256,8 +275,14 @@ function generateTShirtForm(productID, paypalFormID) {
 }
 
 let productForms = {
+    Lacrosse_Tank_Top: generateTShirtForm(`Lacrosse_Tank_Top`, `DELKC6W9DUWH6`),
     Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_T_Shirt`, `5ZMCU8LKWQ6QE`),
     Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Lacrosse_Sticks_T_Shirt`, `BABPTQN2BPLN4`),
+    Lacrosse_Team_Rain_Jacket: generateTShirtForm(`Lacrosse_Team_Rain_Jacket`, `RW2RLGPSK2ZJY`),
+    Lacrosse_Hoodie_Sweatshirt: generateTShirtForm(`Lacrosse_Hoodie_Sweatshirt`, `SCKAVCMJRF6QS`),
+    Girls_Lacrosse_Team_Bag: generateTShirtForm(`Girls_Lacrosse_Team_Bag`, `URVER46QE8EZ8`, false),
+    Lacrosse_Crewneck_Sweatshirt: generateTShirtForm(`Lacrosse_Crewneck_Sweatshirt`, `QASEY2RFG8QZ4`),
+    Lacrosse_Jacket_W_Embroidery: generateTShirtForm(`Lacrosse_Jacket_W_Embroidery`, `PBP42NHJDZXGL`),
     Lacrosse_NGHS_Bulldogs_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Bulldogs_T_Shirt`, `9USFGBC9UL4H2`),
     Lacrosse_Vertical_Stick_T_Shirt: generateTShirtForm(`Lacrosse_Vertical_Stick_T_Shirt`, `FY3UDUG6XYZV6`),
     Lacrosse_NGHS_Black_Bar_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Black_Bar_T_Shirt`, `5KBV7BR3UFLBW`),

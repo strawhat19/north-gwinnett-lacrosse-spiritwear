@@ -57,6 +57,9 @@ body {
     margin-bottom: 12px;
     grid-template-columns: repeat(2, 1fr);
 }
+.noSizeSelector {
+    grid-template-columns: repeat(1, 1fr) !important;
+}
 .products {
     gap: 1.5rem;
     padding: 2rem;
