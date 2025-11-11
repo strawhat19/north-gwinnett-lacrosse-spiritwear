@@ -8,6 +8,10 @@ let photosURL = (window.location.href.includes(`index`) || window.location.href.
 let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
 let navTabs = [{ url: `#`, name: `Spiritwear` }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
 
+let colorsObj = {black: `Black`, red: `Red`, grey: `Grey`, white: `White`};
+let colors = [`Black`, `Red`, `Grey`, `White`];
+let redFirstColors = [`Red`, `Black`, `Grey`, `White`];
+
 function onNavTabClick(e) {
     let ntName = e?.target?.title;
     if (ntName?.toLowerCase() != activeTab?.toLowerCase()) {
@@ -47,6 +51,31 @@ let products = [
     {
         url: `#`,
         ai: false,
+        price: `28.00`,
+        featured: false,
+        usePlaceholder: false,
+        hasColorOptions: false,
+        colors: redFirstColors,
+        id: `NGHS_Under_Armour_T_Shirt`,
+        name: `NGHS Under Armour T-Shirt`,
+        imageURLs: [`${photosURL}/assets/official/nghs_ua_shirt_red.png`],
+    },
+    {
+        url: `#`,
+        ai: false,
+        price: `42.00`,
+        featured: false,
+        usePlaceholder: false,
+        hasColorOptions: true,
+        id: `NGHS_Under_Armour_Hoodie`,
+        name: `NGHS Under Armour Hoodie`,
+        colors: [colorsObj.black, colorsObj.red],
+        imageURLs: [`${photosURL}/assets/official/nghs_ua_sweatshirt_black.png`],
+    },
+    {
+        colors,
+        url: `#`,
+        ai: false,
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
@@ -56,6 +85,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
     },
     {
+        colors,
         url: `#`,
         ai: false,
         price: `16.00`,
@@ -67,6 +97,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/lacrosssestick_vertical_black.png`],
     },
     {
+        colors,
         url: `#`,
         ai: false,
         price: `16.00`,
@@ -78,6 +109,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/northgwinnett_black_bar_black.png`],
     },
     {
+        colors,
         url: `#`,
         ai: false,
         price: `16.00`,
@@ -89,6 +121,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/lacrosse_sticks_shirt_black.png`],
     },
     {
+        colors,
         url: `#`,
         ai: false,
         price: `16.00`,
@@ -100,6 +133,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/NG_bulldogs_black.png`],
     },
     {
+        colors,
         url: `#`,
         ai: true,
         price: `16.00`,
@@ -111,6 +145,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/samples/lacrosse_tank_top_black.png`],
     },
     {
+        colors,
         url: `#`,
         ai: true,
         price: `25.00`,
@@ -122,6 +157,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/samples/lacrosse_crewneck_sweatshirt_black.png`],
     },
     {
+        colors,
         url: `#`,
         ai: true,
         price: `30.00`,
@@ -133,6 +169,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/samples/lacrosse_hoodie_sweatshirt_black.png`],
     },
     // {
+    //     colors,
     //     url: `#`,
     //     ai: true,
     //     price: `40.00`,
@@ -144,6 +181,7 @@ let products = [
     //     imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
     // },
     {
+        colors,
         url: `#`,
         ai: true,
         price: `100.00`,
@@ -155,6 +193,7 @@ let products = [
         imageURLs: [`${photosURL}/assets/samples/lacrosse_team_rain_jacket_black.png`],
     },
     // {
+    //     colors,
     //     url: `#`,
     //     ai: false,
     //     featured: false,
@@ -171,6 +210,7 @@ let products = [
         price: `60.00`,
         featured: false,
         usePlaceholder: false,
+        colors: redFirstColors,
         hasColorOptions: false,
         id: `Girls_Lacrosse_Team_Bag`,
         name: `Girls Lacrosse Team Bag`,
@@ -248,18 +288,11 @@ function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
 
                 <input type="hidden" name="on1" value="Color"/>
                 <select name="os1" id="${productID}_options_dropdown" class="colorSelector cursorPointer">
-                    <option value="Black">
-                        Black
-                    </option>
-                    <option value="Red">
-                        Red
-                    </option>
-                    <option value="Grey">
-                        Grey
-                    </option>
-                    <option value="White">
-                        White
-                    </option>
+                    ${product?.colors?.map(c => (`
+                        <option value="${c}">
+                            ${c}
+                        </option>    
+                    `))}
                 </select>
             </div>
 
@@ -290,6 +323,8 @@ let productForms = {
     Lacrosse_Tank_Top: generateTShirtForm(`Lacrosse_Tank_Top`, `DELKC6W9DUWH6`),
     Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_T_Shirt`, `5ZMCU8LKWQ6QE`),
     Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Lacrosse_Sticks_T_Shirt`, `BABPTQN2BPLN4`),
+    NGHS_Under_Armour_Hoodie: generateTShirtForm(`NGHS_Under_Armour_Hoodie`, `U76A39SMN9TJG`),
+    NGHS_Under_Armour_T_Shirt: generateTShirtForm(`NGHS_Under_Armour_T_Shirt`, `3WEMBUCAFNWX6`),
     Lacrosse_Team_Rain_Jacket: generateTShirtForm(`Lacrosse_Team_Rain_Jacket`, `RW2RLGPSK2ZJY`),
     Lacrosse_Hoodie_Sweatshirt: generateTShirtForm(`Lacrosse_Hoodie_Sweatshirt`, `SCKAVCMJRF6QS`),
     Girls_Lacrosse_Team_Bag: generateTShirtForm(`Girls_Lacrosse_Team_Bag`, `URVER46QE8EZ8`, false),
