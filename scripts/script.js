@@ -4,8 +4,8 @@ let shopURL = `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
 let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
 let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main`;
 let placeholderImageURL_nghs = `https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png`;
-let photosURL = window.location.href.includes(`index`) ? `` : githubPhotosURL;
-// let placeholderImageURL_nghs = `${photosURL}/assets/official/icons/bulldog_icon_opt.png`;
+let photosURL = (window.location.href.includes(`index`) || window.location.href.includes(`:5500`)) ? `` : githubPhotosURL;
+let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
 let navTabs = [{ url: `#`, name: `Spiritwear` }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
 
 function onNavTabClick(e) {
@@ -46,6 +46,7 @@ function setNavTabs() {
 let products = [
     {
         url: `#`,
+        ai: false,
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
@@ -56,6 +57,7 @@ let products = [
     },
     {
         url: `#`,
+        ai: false,
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
@@ -66,6 +68,7 @@ let products = [
     },
     {
         url: `#`,
+        ai: false,
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
@@ -76,6 +79,7 @@ let products = [
     },
     {
         url: `#`,
+        ai: false,
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
@@ -86,6 +90,7 @@ let products = [
     },
     {
         url: `#`,
+        ai: false,
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
@@ -96,6 +101,7 @@ let products = [
     },
     {
         url: `#`,
+        ai: true,
         price: `16.00`,
         featured: false,
         usePlaceholder: false,
@@ -106,6 +112,7 @@ let products = [
     },
     {
         url: `#`,
+        ai: true,
         price: `25.00`,
         featured: false,
         usePlaceholder: false,
@@ -116,6 +123,7 @@ let products = [
     },
     {
         url: `#`,
+        ai: true,
         price: `30.00`,
         featured: false,
         usePlaceholder: false,
@@ -124,18 +132,20 @@ let products = [
         name: `Lacrosse Hoodie Sweatshirt`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_hoodie_sweatshirt_black.png`],
     },
+    // {
+    //     url: `#`,
+    //     ai: true,
+    //     price: `40.00`,
+    //     featured: false,
+    //     usePlaceholder: false,
+    //     hasColorOptions: false,
+    //     id: `Lacrosse_Jacket_W_Embroidery`,
+    //     name: `Lacrosse Jacket w/ Embroidery`,
+    //     imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
+    // },
     {
         url: `#`,
-        price: `40.00`,
-        featured: false,
-        usePlaceholder: false,
-        hasColorOptions: false,
-        id: `Lacrosse_Jacket_W_Embroidery`,
-        name: `Lacrosse Jacket w/ Embroidery`,
-        imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
-    },
-    {
-        url: `#`,
+        ai: true,
         price: `100.00`,
         featured: false,
         usePlaceholder: false,
@@ -146,6 +156,7 @@ let products = [
     },
     // {
     //     url: `#`,
+    //     ai: false,
     //     featured: false,
     //     usePlaceholder: false,
     //     hasColorOptions: false,
@@ -156,6 +167,7 @@ let products = [
     // },
     {
         url: `#`,
+        ai: false,
         price: `60.00`,
         featured: false,
         usePlaceholder: false,
@@ -316,6 +328,7 @@ function appendProduct(product, container) {
         <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
             <a class="productLink">
                 <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImageURL_nghs : product?.imageURLs[0]}" alt="${product?.name}" />
+                ${product?.ai ? `<img class="aiBadge" src="${aiBadge}" alt="${product?.name} AI" />` : ``}
                 <div class="productDetails">
                     <h3 class="productName ${product?.featured ? `featuredName` : `standardProductName`}">
                         ${product?.name}

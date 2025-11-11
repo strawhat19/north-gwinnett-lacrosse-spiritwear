@@ -129,10 +129,20 @@ body {
 .product a {
     height: 100%;
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: space-between;
     text-decoration: none !important;
     transition: var(--transition-5s);
+}
+.aiBadge {
+    --sz: 52px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    transform: rotate(30deg);
+    max-width: var(--sz) !important;
+    max-height: var(--sz) !important;
 }
 .product a h3 {
     margin-left: auto;
