@@ -1,12 +1,14 @@
 let maxDecimals = 2;
 let activeTab = `Spiritwear`;
-let shopURL = `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
+let businessEmail = `nghslaxbooster@gmail.com`;
 let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
+let isDev = (window.location.href.includes(`index`) || window.location.href.includes(`:5500`));
 let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main`;
 let placeholderImageURL_nghs = `https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png`;
-let photosURL = (window.location.href.includes(`index`) || window.location.href.includes(`:5500`)) ? `` : githubPhotosURL;
+let photosURL = isDev ? `` : githubPhotosURL;
 let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
-let navTabs = [{ url: `#`, name: `Spiritwear` }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
+let shopURL = isDev ? `` : `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
+let navTabs = [{ url: `#`, name: activeTab }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
 
 let colorsObj = {black: `Black`, red: `Red`, grey: `Grey`, white: `White`};
 let colorsLC = Object.keys(colorsObj);
@@ -320,11 +322,6 @@ function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
     let formHTML = `
         <form oninput="onShirtFormInput(event)" id="${productID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 
-            <input type="hidden" name="shopping_url" value="${shopURL}" />
-            <input type="hidden" name="return" value="${shopURL}?paid=1" />
-            <input type="hidden" name="cancel_return" value="${shopURL}?canceled=1" />
-            <input type="hidden" name="cbt" value="Back to Spiritwear" />
-
            ${product?.types?.length > 1 ? `
                 <input type="hidden" name="on2" value="Type" />
                 <select name="os2" id="${productID}_types_dropdown" class="typeSelector cursorPointer">
@@ -371,18 +368,18 @@ function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
                 </select>
             </div>
 
-            <input type="hidden" name="cmd" value="_cart">
+            <input type="hidden" name="cmd" value="_cart" />
 
             <input type="hidden" name="add" value="1">
-            <input type="hidden" name="business" value="nghslaxbooster@gmail.com">
-            <input type="hidden" name="item_name" value="${product?.name}">
-            <input type="hidden" name="amount" value="${product?.price}">
+            <input type="hidden" name="business" value="${businessEmail}" />
+            <input type="hidden" name="item_name" value="${product?.name}" />
+            <input type="hidden" name="amount" value="${product?.price}" />
 
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="hidden" name="shopping_url" value="${shopURL}">
-            <input type="hidden" name="return" value="${shopURL}?paid=1">
-            <input type="hidden" name="cancel_return" value="${shopURL}?canceled=1">
-            <input type="hidden" name="cbt" value="Back to Spiritwear">
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="shopping_url" value="${shopURL}" />
+            <input type="hidden" name="return" value="${shopURL}?paid=1" />
+            <input type="hidden" name="cancel_return" value="${shopURL}?canceled=1" />
+            <input type="hidden" name="cbt" value="Back to ${activeTab}" />
 
             <button class="addToCartButton" alt="Add to Cart">
                 <img class="paypalBadge" src="${photosURL}/assets/graphics/paypal-badge-5.png" alt="Paypal Badge" />
