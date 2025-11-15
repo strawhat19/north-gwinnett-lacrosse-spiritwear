@@ -1,6 +1,7 @@
 let maxDecimals = 2;
 let activeTab = `Spiritwear`;
 let businessEmail = `nghslaxbooster@gmail.com`;
+let sizes = [`Small`, `Medium`, `Large`, `X Large`, `XX Large`, `XXX Large`];
 let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
 let isDev = (window.location.href.includes(`index`) || window.location.href.includes(`:5500`));
 let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main`;
@@ -52,37 +53,46 @@ function setNavTabs() {
 
 let products = [
     {
+        sizes,
         url: `#`,
         ai: false,
         types: [],
+        size: sizes[0],
         price: `28.00`,
         featured: false,
         usePlaceholder: false,
         hasColorOptions: false,
         colors: redFirstColors,
+        color: redFirstColors[0],
         id: `NGHS_Under_Armour_T_Shirt`,
         name: `NGHS Under Armour T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/nghs_ua_shirt_red.png`],
     },
     {
+        sizes,
         url: `#`,
         ai: false,
         types: [],
+        size: sizes[0],
         price: `42.00`,
         featured: false,
         usePlaceholder: false,
         hasColorOptions: true,
+        color: colorsObj.black,
         id: `NGHS_Under_Armour_Hoodie`,
         name: `NGHS Under Armour Hoodie`,
         colors: [colorsObj.black, colorsObj.red],
         imageURLs: [`${photosURL}/assets/official/nghs_ua_sweatshirt_black.png`],
     },
     {
+        sizes,
         colors,
         url: `#`,
         ai: false,
+        size: sizes[0],
         price: `16.00`,
         featured: false,
+        color: colors[0],
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
@@ -93,11 +103,14 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
     },
     {
+        sizes,
         colors,
         url: `#`,
         ai: false,
+        size: sizes[0],
         price: `16.00`,
         featured: false,
+        color: colors[0],
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
@@ -108,11 +121,14 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/lacrosssestick_vertical_black.png`],
     },
     {
+        sizes,
         colors,
         url: `#`,
         ai: false,
+        size: sizes[0],
         price: `16.00`,
         featured: false,
+        color: colors[0],
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
@@ -123,11 +139,14 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/northgwinnett_black_bar_black.png`],
     },
     {
+        sizes,
         colors,
         url: `#`,
         ai: false,
+        size: sizes[0],
         price: `16.00`,
         featured: false,
+        color: colors[0],
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
@@ -138,11 +157,14 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/lacrosse_sticks_shirt_black.png`],
     },
     {
+        sizes,
         colors,
         url: `#`,
         ai: false,
+        size: sizes[0],
         price: `16.00`,
         featured: false,
+        color: colors[0],
         image: `NG_bulldogs`,
         usePlaceholder: false,
         hasColorOptions: true,
@@ -153,12 +175,15 @@ let products = [
         imageURLs: [`${photosURL}/assets/official/NG_bulldogs_black.png`],
     },
     {
+        sizes,
         colors,
         url: `#`,
         ai: true,
         types: [],
+        size: sizes[0],
         price: `16.00`,
         featured: false,
+        color: colors[0],
         usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Tank_Top`,
@@ -166,12 +191,15 @@ let products = [
         imageURLs: [`${photosURL}/assets/samples/lacrosse_tank_top_black.png`],
     },
     {
+        sizes,
         colors,
         url: `#`,
         ai: true,
         types: [],
+        size: sizes[0],
         price: `25.00`,
         featured: false,
+        color: colors[0],
         usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Crewneck_Sweatshirt`,
@@ -179,12 +207,15 @@ let products = [
         imageURLs: [`${photosURL}/assets/samples/lacrosse_crewneck_sweatshirt_black.png`],
     },
     {
+        sizes,
         colors,
         url: `#`,
         ai: true,
         types: [],
+        size: sizes[0],
         price: `30.00`,
         featured: false,
+        color: colors[0],
         usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Hoodie_Sweatshirt`,
@@ -192,12 +223,15 @@ let products = [
         imageURLs: [`${photosURL}/assets/samples/lacrosse_hoodie_sweatshirt_black.png`],
     },
     // {
+    //     sizes,
     //     colors,
     //     url: `#`,
     //     ai: true,
     //     types: [],
+    //     size: sizes[0],
     //     price: `40.00`,
     //     featured: false,
+    //     color: colors[0],
     //     usePlaceholder: false,
     //     hasColorOptions: false,
     //     id: `Lacrosse_Jacket_W_Embroidery`,
@@ -205,12 +239,15 @@ let products = [
     //     imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
     // },
     {
+        sizes,
         colors,
         url: `#`,
         ai: true,
         types: [],
+        size: sizes[0],
         price: `100.00`,
         featured: false,
+        color: colors[0],
         usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Team_Rain_Jacket`,
@@ -218,11 +255,14 @@ let products = [
         imageURLs: [`${photosURL}/assets/samples/lacrosse_team_rain_jacket_black.png`],
     },
     // {
+    //     sizes,
     //     colors,
     //     url: `#`,
     //     types: [],
     //     ai: false,
+    //     size: sizes[0],
     //     featured: false,
+    //     color: colors[0],
     //     usePlaceholder: false,
     //     hasColorOptions: false,
     //     price: `108.00 - $116.00`,
@@ -231,14 +271,17 @@ let products = [
     //     imageURLs: [`${photosURL}/assets/opt/lacrosse_team_jacket.png`],
     // },
     {
+        sizes,
         url: `#`,
         ai: false,
         types: [],
+        size: sizes[0],
         price: `60.00`,
         featured: false,
         usePlaceholder: false,
         colors: redFirstColors,
         hasColorOptions: false,
+        color: redFirstColors[0],
         id: `Girls_Lacrosse_Team_Bag`,
         name: `Girls Lacrosse Team Bag`,
         imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
@@ -247,8 +290,11 @@ let products = [
     ...p, 
     id: p?.id ? p?.id : pi + 1, 
     name: p?.name?.includes(`Sample`) ? `Sample Product ${pi + 1}` : p?.name, 
-    extraClasses: p?.imageURLs?.includes(placeholderImageURL) ? `sample` : p?.extraClasses,
+    extraClasses: p?.imageURLs?.includes(placeholderImageURL) ? `sample` : (p?.extraClasses ? p?.extraClasses : `productComponentClass`),
 }));
+
+let storedProducts = getStorage(`products`);
+products = Array.isArray(storedProducts) && storedProducts.length > 0 ? storedProducts : products;
 
 function onColorChange(productImageURL, optionValueLC, productImageElement) {
     let [productImageNoExtension] = productImageURL?.split(`.png`);
@@ -316,6 +362,74 @@ function onShirtFormInput(e) {
     }
 }
 
+function extractCaps(str) {
+  return (str.match(/[A-Z]/g) || []).join(``);
+}
+
+function setStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+function setProductParam(e) {
+    e?.preventDefault();
+    let trgt = e?.target;
+    let { id, value, className } = trgt;
+    if (className?.includes(`size`)) {
+        let [productID, ] = id?.split(`_size_button_`);
+        let product = products?.find(p => p?.id == productID);
+        if (product) {
+            let productSizeSelectorValue = document.querySelector(`#${productID}_sizes_value`);
+            if (productSizeSelectorValue) {
+                let productSizeSelector = document.querySelector(`#${productID}_sizes_selector`);
+                if (productSizeSelector) {
+                    let productSizeButtons = productSizeSelector?.querySelectorAll(`button`);
+                    productSizeButtons.forEach(btn => {
+                        if (btn?.id != id) {
+                            btn.className = btn?.className?.replaceAll(`activeTabButton`, ``);
+                        } else {
+                            btn.className = btn?.className + ` activeTabButton`;
+                        }
+                    });
+                    product.size = value;
+                    productSizeSelectorValue.value = value;
+                    setStorage(`products`, products);
+                }
+            }
+        }
+    }
+}
+
+function getProduct(productID) {
+    return products?.find(p => p?.id == productID);
+}
+
+const sizeComponents = {
+    dropdown: (productID, szes = sizes) => `
+        <input type="hidden" name="on0" value="Size" />
+        <select name="os0" id="${productID}_sizes_dropdown" class="sizeSelector cursorPointer">
+            ${szes?.map(s => (`
+                <option value="${s}">
+                    ${s}
+                </option>
+            `))}
+        </select>    
+    `,
+    tabs: (productID, szes = sizes) => `
+        <input type="hidden" name="on0" value="Size" />
+        <input id="${productID}_sizes_value" type="hidden" name="os0" value="${getProduct(productID)?.size}" />
+        <div id="${productID}_sizes_selector" class="sizeSelector cursorPointer selectorTabs">
+            ${szes?.map((s) => (`<button 
+                value="${s}" 
+                onclick="setProductParam(event)"
+                id="${productID}_size_button_${extractCaps(s)}" 
+                class="tabButton sizeButton ${s == getProduct(productID)?.size ? `activeTabButton` : `inactiveTabButton`}" 
+            >
+                ${extractCaps(s)}
+            </button>`)).join(``)}
+        </div>    
+    `,
+};
+
 function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
     let product = products.find(p => p?.id == productID);
 
@@ -334,29 +448,7 @@ function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
             ` : ``}
 
             <div class="formFieldsContainer ${showSizeSelector ? `showSizeSelector` : `noSizeSelector`}">
-                ${showSizeSelector ? `
-                    <input type="hidden" name="on0" value="Size" />
-                    <select name="os0" class="sizeSelector cursorPointer">
-                        <option value="Small">
-                            Small
-                        </option>
-                        <option value="Medium">
-                            Medium
-                        </option>
-                        <option value="Large">
-                            Large
-                        </option>
-                        <option value="X Large">
-                            X Large
-                        </option>
-                        <option value="XX Large">
-                            XX Large
-                        </option>
-                        <option value="XXX Large">
-                            XXX Large
-                        </option>
-                    </select>    
-                ` : ``}
+                ${showSizeSelector ? sizeComponents.tabs(productID, product?.sizes) : ``}
 
                 <input type="hidden" name="on1" value="Color" />
                 <select name="os1" id="${productID}_options_dropdown" class="colorSelector cursorPointer">
@@ -448,6 +540,16 @@ function appendProduct(product, container) {
         </div>
     `;
     container.insertAdjacentHTML(`beforeend`, productComponentHTML);
+}
+
+function getStorage(key) {
+    try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : null;
+    } catch (e) {
+        console.log(`Invalid JSON in localStorage for key "${key}"`);
+        return null;
+    }
 }
 
 function setProducts() {
