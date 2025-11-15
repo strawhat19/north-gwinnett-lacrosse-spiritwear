@@ -362,8 +362,12 @@ function onShirtFormInput(e) {
     }
 }
 
-function extractCaps(str) {
-  return (str.match(/[A-Z]/g) || []).join(``);
+function extractCaps(str, size = false) {
+    let caps = (str.match(/[A-Z]/g) || []).join(``);
+    if (size) {
+        caps = caps?.replaceAll(`XXX`, `3X`)?.replaceAll(`XX`, `2X`);
+    }
+    return caps;
 }
 
 function setStorage(key, value) {
@@ -421,10 +425,10 @@ const sizeComponents = {
             ${szes?.map((s) => (`<button 
                 value="${s}" 
                 onclick="setProductParam(event)"
-                id="${productID}_size_button_${extractCaps(s)}" 
+                id="${productID}_size_button_${extractCaps(s, true)}" 
                 class="tabButton sizeButton ${s == getProduct(productID)?.size ? `activeTabButton` : `inactiveTabButton`}" 
             >
-                ${extractCaps(s)}
+                ${extractCaps(s, true)}
             </button>`)).join(``)}
         </div>    
     `,
