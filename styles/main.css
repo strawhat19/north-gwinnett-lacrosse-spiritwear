@@ -57,11 +57,9 @@ body {
     margin-bottom: 12px;
     grid-template-columns: repeat(2, 1fr);
 }
-.sizeButton {
-    color: black;
-}
 .tabButton {
     border: none;
+    color: black;
     padding: 0 2px;
     border-radius: 0;
     font-size: 0.95em;
@@ -72,17 +70,25 @@ body {
     background: var(--main);
 }
 .selectorTabs {
-    top: 13px;
     width: 100%;
     display: flex;
     grid-gap: 2px;
     max-height: 18px;
     overflow: hidden;
     position: relative;
-    align-items: center;
     border-radius: 4px;
+    align-items: center;
     background: var(--main);
     justify-content: space-evenly;
+}
+.sizeSelector {
+    top: 13px;
+}
+.typeSelector {
+    top: 3px;
+}
+.typeButton {
+    width: 100%;
 }
 .noSizeSelector {
     grid-template-columns: repeat(1, 1fr) !important;

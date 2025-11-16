@@ -1,4 +1,5 @@
 let maxDecimals = 2;
+let useTabButtons = true;
 let activeTab = `Spiritwear`;
 let businessEmail = `nghslaxbooster@gmail.com`;
 let sizes = [`Small`, `Medium`, `Large`, `X Large`, `XX Large`, `XXX Large`];
@@ -55,6 +56,7 @@ let products = [
     {
         sizes,
         url: `#`,
+        type: ``,
         ai: false,
         types: [],
         size: sizes[0],
@@ -71,6 +73,7 @@ let products = [
     {
         sizes,
         url: `#`,
+        type: ``,
         ai: false,
         types: [],
         size: sizes[0],
@@ -92,6 +95,7 @@ let products = [
         size: sizes[0],
         price: `16.00`,
         featured: false,
+        type: `T-Shirt`,
         color: colors[0],
         usePlaceholder: false,
         hasColorOptions: true,
@@ -110,6 +114,7 @@ let products = [
         size: sizes[0],
         price: `16.00`,
         featured: false,
+        type: `T-Shirt`,
         color: colors[0],
         usePlaceholder: false,
         hasColorOptions: true,
@@ -128,6 +133,7 @@ let products = [
         size: sizes[0],
         price: `16.00`,
         featured: false,
+        type: `T-Shirt`,
         color: colors[0],
         usePlaceholder: false,
         hasColorOptions: true,
@@ -146,6 +152,7 @@ let products = [
         size: sizes[0],
         price: `16.00`,
         featured: false,
+        type: `T-Shirt`,
         color: colors[0],
         usePlaceholder: false,
         hasColorOptions: true,
@@ -164,6 +171,7 @@ let products = [
         size: sizes[0],
         price: `16.00`,
         featured: false,
+        type: `T-Shirt`,
         color: colors[0],
         image: `NG_bulldogs`,
         usePlaceholder: false,
@@ -179,6 +187,7 @@ let products = [
         colors,
         url: `#`,
         ai: true,
+        type: ``,
         types: [],
         size: sizes[0],
         price: `16.00`,
@@ -195,6 +204,7 @@ let products = [
         colors,
         url: `#`,
         ai: true,
+        type: ``,
         types: [],
         size: sizes[0],
         price: `25.00`,
@@ -211,6 +221,7 @@ let products = [
         colors,
         url: `#`,
         ai: true,
+        type: ``,
         types: [],
         size: sizes[0],
         price: `30.00`,
@@ -227,6 +238,7 @@ let products = [
     //     colors,
     //     url: `#`,
     //     ai: true,
+    //     type: ``,
     //     types: [],
     //     size: sizes[0],
     //     price: `40.00`,
@@ -243,6 +255,7 @@ let products = [
         colors,
         url: `#`,
         ai: true,
+        type: ``,
         types: [],
         size: sizes[0],
         price: `100.00`,
@@ -258,6 +271,7 @@ let products = [
     //     sizes,
     //     colors,
     //     url: `#`,
+    //     type: ``,
     //     types: [],
     //     ai: false,
     //     size: sizes[0],
@@ -273,6 +287,7 @@ let products = [
     {
         sizes,
         url: `#`,
+        type: ``,
         ai: false,
         types: [],
         size: sizes[0],
@@ -326,6 +341,8 @@ function onTypeChange(product, productElement, optionValue, optionValueLC, produ
                     let shirtURL = imgURL?.replaceAll(`_sleeveless`, ``) + `.png`;
                     newImageURL = shirtURL;
                 }
+                product.imageURLs[0] = newImageURL;
+                product.extraClasses = optionValue;
                 productImageElement.src = newImageURL;
                 productElement.className = newClassName;
             }
@@ -376,28 +393,49 @@ function setStorage(key, value) {
 
 function setProductParam(e) {
     e?.preventDefault();
+    let key = ``;
     let trgt = e?.target;
     let { id, value, className } = trgt;
-    if (className?.includes(`size`)) {
-        let [productID, ] = id?.split(`_size_button_`);
-        let product = products?.find(p => p?.id == productID);
-        if (product) {
-            let productSizeSelectorValue = document.querySelector(`#${productID}_sizes_value`);
-            if (productSizeSelectorValue) {
-                let productSizeSelector = document.querySelector(`#${productID}_sizes_selector`);
-                if (productSizeSelector) {
-                    let productSizeButtons = productSizeSelector?.querySelectorAll(`button`);
-                    productSizeButtons.forEach(btn => {
-                        if (btn?.id != id) {
-                            btn.className = btn?.className?.replaceAll(`activeTabButton`, ``);
-                        } else {
-                            btn.className = btn?.className + ` activeTabButton`;
-                        }
-                    });
-                    product.size = value;
-                    productSizeSelectorValue.value = value;
-                    setStorage(`products`, products);
+
+    let isSizeSelector = className?.includes(`size`);
+    let isTypeSelector = className?.includes(`type`);
+
+    if (isSizeSelector) {
+        key = `size`;
+    } else if (isTypeSelector) {
+        key = `type`;
+    }
+
+    let [productID, ] = id?.split(`_${key}_button_`);
+    let product = products?.find(p => p?.id == productID);
+    if (product) {
+        let productSelectorValue = document.querySelector(`#${productID}_${key}s_value`);
+        if (productSelectorValue) {
+            let productSelector = document.querySelector(`#${productID}_${key}s_selector`);
+            if (productSelector) {
+                let productButtons = productSelector?.querySelectorAll(`button`);
+
+                productButtons.forEach(btn => {
+                    if (btn?.id != id) {
+                        btn.className = btn?.className?.replaceAll(`activeTabButton`, ``);
+                    } else {
+                        btn.className = btn?.className + ` activeTabButton`;
+                    }
+                });
+
+                product[key] = value;
+                productSelectorValue.value = value;
+                
+                let productElement = document.querySelector(`#product_${productID}`);
+                let productImageElement = document.querySelector(`#productImage_${productID}`);
+                if (productImageElement) {
+                    let productImageURL = productImageElement?.src;
+                    if (isTypeSelector) {
+                        onTypeChange(product, productElement, value, value?.toLowerCase(), productImageURL, productImageElement);
+                    }
                 }
+
+                setStorage(`products`, products);
             }
         }
     }
@@ -434,25 +472,49 @@ const sizeComponents = {
     `,
 };
 
+const typeComponents = {
+    dropdown: (productID, typs) => `
+        <input type="hidden" name="on2" value="Type" />
+        <select name="os2" id="${productID}_types_dropdown" class="typeSelector cursorPointer">
+            ${typs?.map(t => (`
+                <option value="${t}">
+                    ${t}
+                </option>    
+            `))}
+        </select>
+    `,
+    tabs: (productID, typs) => `
+        <input type="hidden" name="on2" value="Type" />
+        <input id="${productID}_types_value" type="hidden" name="os2" value="${getProduct(productID)?.type}" />
+        <div id="${productID}_types_selector" class="typeSelector cursorPointer selectorTabs">
+            ${typs?.map((t) => (`<button 
+                value="${t}" 
+                onclick="setProductParam(event)"
+                id="${productID}_type_button_${t}" 
+                class="tabButton typeButton ${t == getProduct(productID)?.type ? `activeTabButton` : `inactiveTabButton`}" 
+            >
+                ${t}
+            </button>`)).join(``)}
+        </div>
+    `,
+}
+
 function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
     let product = products.find(p => p?.id == productID);
 
     let formHTML = `
-        <form oninput="onShirtFormInput(event)" id="${productID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <form class="paypalFormID_${paypalFormID}" oninput="onShirtFormInput(event)" id="${productID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 
-           ${product?.types?.length > 1 ? `
-                <input type="hidden" name="on2" value="Type" />
-                <select name="os2" id="${productID}_types_dropdown" class="typeSelector cursorPointer">
-                    ${product?.types?.map(t => (`
-                        <option value="${t}">
-                            ${t}
-                        </option>    
-                    `))}
-                </select>
-            ` : ``}
+           ${product?.types?.length > 1 ? (useTabButtons 
+                ? typeComponents.tabs(productID, product?.types) 
+                : typeComponents.dropdown(productID, product?.types)
+            ) : ``}
 
             <div class="formFieldsContainer ${showSizeSelector ? `showSizeSelector` : `noSizeSelector`}">
-                ${showSizeSelector ? sizeComponents.tabs(productID, product?.sizes) : ``}
+                ${showSizeSelector ? (useTabButtons 
+                    ? sizeComponents.tabs(productID, product?.sizes) 
+                    : sizeComponents.dropdown(productID, product?.sizes)
+                ) : ``}
 
                 <input type="hidden" name="on1" value="Color" />
                 <select name="os1" id="${productID}_options_dropdown" class="colorSelector cursorPointer">
