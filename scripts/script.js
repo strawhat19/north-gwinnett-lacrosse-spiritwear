@@ -9,7 +9,7 @@ let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinne
 let placeholderImgURL = `https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png`;
 
 let photosURL = isDev ? `` : githubPhotosURL;
-let useTabButtons = isDev;
+let useTabButtons = false;
 let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
 let shopURL = isDev ? `` : `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
 
@@ -63,7 +63,7 @@ let products = [
         ai: false,
         types: [],
         size: sizes[0],
-        price: `28.00`,
+        price: `35.00`,
         featured: false,
         usePlaceholder: false,
         hasColorOptions: false,
@@ -80,7 +80,7 @@ let products = [
         ai: false,
         types: [],
         size: sizes[0],
-        price: `42.00`,
+        price: `75.00`,
         featured: false,
         usePlaceholder: false,
         hasColorOptions: true,
@@ -96,7 +96,7 @@ let products = [
         url: `#`,
         ai: false,
         size: sizes[0],
-        price: `16.00`,
+        price: `18.00`,
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
@@ -115,7 +115,7 @@ let products = [
         url: `#`,
         ai: false,
         size: sizes[0],
-        price: `16.00`,
+        price: `18.00`,
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
@@ -134,7 +134,7 @@ let products = [
         url: `#`,
         ai: false,
         size: sizes[0],
-        price: `16.00`,
+        price: `18.00`,
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
@@ -153,7 +153,7 @@ let products = [
         url: `#`,
         ai: false,
         size: sizes[0],
-        price: `16.00`,
+        price: `18.00`,
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
@@ -172,7 +172,7 @@ let products = [
         url: `#`,
         ai: false,
         size: sizes[0],
-        price: `16.00`,
+        price: `18.00`,
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
@@ -185,23 +185,23 @@ let products = [
         name: `Lacrosse NGHS Bulldogs Shirt`,
         imageURLs: [`${photosURL}/assets/official/NG_bulldogs_black.png`],
     },
-    {
-        sizes,
-        colors,
-        url: `#`,
-        ai: true,
-        type: ``,
-        types: [],
-        size: sizes[0],
-        price: `16.00`,
-        featured: false,
-        color: colors[0],
-        usePlaceholder: false,
-        hasColorOptions: false,
-        id: `Lacrosse_Tank_Top`,
-        name: `Lacrosse Tank Top`,
-        imageURLs: [`${photosURL}/assets/samples/lacrosse_tank_top_black.png`],
-    },
+    // {
+    //     sizes,
+    //     colors,
+    //     url: `#`,
+    //     ai: true,
+    //     type: ``,
+    //     types: [],
+    //     size: sizes[0],
+    //     price: `18.00`,
+    //     featured: false,
+    //     color: colors[0],
+    //     usePlaceholder: false,
+    //     hasColorOptions: false,
+    //     id: `Lacrosse_Tank_Top`,
+    //     name: `Lacrosse Tank Top`,
+    //     imageURLs: [`${photosURL}/assets/samples/lacrosse_tank_top_black.png`],
+    // },
     {
         sizes,
         colors,
@@ -257,18 +257,21 @@ let products = [
         sizes,
         colors,
         url: `#`,
-        ai: true,
+        ai: false,
         type: ``,
         types: [],
         size: sizes[0],
-        price: `100.00`,
+        price: `42.00`,
         featured: false,
         color: colors[0],
+        name: `Rain Jacket`,
         usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Team_Rain_Jacket`,
-        name: `Lacrosse Team Rain Jacket`,
-        imageURLs: [`${photosURL}/assets/samples/lacrosse_team_rain_jacket_black.png`],
+        imageURLs: [
+            `${photosURL}/assets/official/models/NGHS_Rain_Jacket_w_Model.png`,
+            // `${photosURL}/assets/samples/lacrosse_team_rain_jacket_black.png`,
+        ],
     },
     // {
     //     sizes,
@@ -294,7 +297,7 @@ let products = [
         ai: false,
         types: [],
         size: sizes[0],
-        price: `60.00`,
+        price: `80.00`,
         featured: false,
         usePlaceholder: false,
         colors: redFirstColors,
@@ -312,15 +315,20 @@ let products = [
 }));
 
 let storedProducts = getStorage(`products`);
-products = Array.isArray(storedProducts) && storedProducts.length > 0 ? storedProducts : products;
+if (useTabButtons && (Array.isArray(storedProducts) && storedProducts.length > 0)) {
+    products = storedProducts;
+}
 
 function onColorChange(productImageURL, optionValueLC, productImageElement) {
-    let [productImageNoExtension] = productImageURL?.split(`.png`);
-    let productImageURLParts = productImageNoExtension?.split(`_`);
-    let currentImageColorImage = [...productImageURLParts]?.find(c => colorsLC?.includes(c));
-    let newImageURL = productImageURL?.replaceAll(currentImageColorImage, optionValueLC);
-    let [currentImageColor] = currentImageColorImage.split(`.`);
-    if (optionValueLC?.toLowerCase() != currentImageColor?.toLowerCase()) {
+    let [baseURL] = productImageURL.split(`.png`);
+    let parts = baseURL.split(`_`);
+    let matchedColors = parts.filter(p => colorsLC.includes(p.toLowerCase()));
+    if (matchedColors.length === 0) return;
+    let lastColor = matchedColors[matchedColors.length - 1];
+    let lastIndex = parts.lastIndexOf(lastColor);
+    parts[lastIndex] = optionValueLC;
+    let newImageURL = parts.join(`_`) + `.png`;
+    if (optionValueLC.toLowerCase() !== lastColor.toLowerCase()) {
         productImageElement.src = newImageURL;
     }
 }
@@ -391,7 +399,9 @@ function extractCaps(str, size = false) {
 }
 
 function setStorage(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    if (useTabButtons) {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
 }
 
 function setProductParam(e) {
