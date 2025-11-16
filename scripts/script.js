@@ -1,15 +1,18 @@
 let maxDecimals = 2;
-let useTabButtons = true;
 let activeTab = `Spiritwear`;
 let businessEmail = `nghslaxbooster@gmail.com`;
 let sizes = [`Small`, `Medium`, `Large`, `X Large`, `XX Large`, `XXX Large`];
+let isDev = window.location.href.includes(`index`) || window.location.href.includes(`:5500`);
+
 let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
-let isDev = (window.location.href.includes(`index`) || window.location.href.includes(`:5500`));
 let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main`;
-let placeholderImageURL_nghs = `https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png`;
+let placeholderImgURL = `https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png`;
+
 let photosURL = isDev ? `` : githubPhotosURL;
+let useTabButtons = isDev;
 let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
 let shopURL = isDev ? `` : `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
+
 let navTabs = [{ url: `#`, name: activeTab }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
 
 let colorsObj = {black: `Black`, red: `Red`, grey: `Grey`, white: `White`};
@@ -592,7 +595,7 @@ function appendProduct(product, container) {
     let productComponentHTML = `
         <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
             <a class="productLink">
-                <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImageURL_nghs : product?.imageURLs[0]}" alt="${product?.name}" />
+                <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImgURL : product?.imageURLs[0]}" alt="${product?.name}" />
                 ${product?.ai ? `<img class="aiBadge" src="${aiBadge}" alt="${product?.name} AI" />` : ``}
                 <div class="productDetails">
                     <h3 class="productName ${product?.featured ? `featuredName` : `standardProductName`}">
