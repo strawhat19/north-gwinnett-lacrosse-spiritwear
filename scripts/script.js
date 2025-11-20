@@ -360,6 +360,7 @@ function onColorChange(product, productImageURL, optionValue, optionValueLC, pro
         productImageElement.src = newImageURL;
     }
     product.color = optionValue;
+    setProductForm(product?.id);
 }
 
 function onTypeChange(product, productElement, optionValue, optionValueLC, productImageURL, productImageElement) {
@@ -423,8 +424,10 @@ function onShirtFormInput(e) {
             let product = getProduct(productID);
             if (product) {
                 product.size = optionValue;
+                setProductForm(product?.id);
             }
         }
+        return;
     }
 
     if (!isColorSelector && !isTypeSelector) return;
@@ -525,7 +528,7 @@ const sizeComponents = {
             <input type="hidden" name="on0" value="Size" />
             <select name="os0" id="${productID}_sizes_dropdown" class="sizeSelector cursorPointer">
                 ${szes?.map(s => (`
-                    <option value="${s}">
+                    <option value="${s}" class="sizeOption ${s == pS ? `activeOption` : ``}">
                         ${s}
                     </option>
                 `))}
@@ -559,7 +562,7 @@ const typeComponents = {
             <input type="hidden" name="on2" value="Type" />
             <select name="os2" id="${productID}_types_dropdown" class="typeSelector cursorPointer">
                 ${typs?.map(t => (`
-                    <option value="${t}">
+                    <option value="${t}" class="typeOption ${t == tTyp ? `activeOption` : ``}">
                         ${t}
                     </option>    
                 `))}
@@ -603,7 +606,7 @@ const colorComponents = {
                 <input type="hidden" name="on1" value="Color" />
                 <select name="os1" ${clrs?.length <= 1 && !hideOnDisabled ? 'disabled' : ''} id="${productID}_options_dropdown" class="colorSelector ${clrs?.length <= 1 ? `isDisabled` : `cursorPointer`}">
                     ${clrs?.map(c => (`
-                        <option value="${c}">
+                        <option value="${c}" class="colorOption ${c == pClr ? `activeOption` : ``}">
                             ${c}
                         </option>    
                     `))}

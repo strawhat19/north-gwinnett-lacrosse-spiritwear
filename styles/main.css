@@ -1,4 +1,5 @@
 :root {
+    --navBG: #222;
     --main: #d72327;
     --paypal-yellow: #ffd140;
     --dropdown-bg: rgba(240, 240, 240, 1);
@@ -27,8 +28,8 @@ body {
 #spiritwear_nav {
     display: flex;
     padding: 0.5rem;
-    background: #222;
     justify-content: center;
+    background: var(--navBG);
 }
 #spiritwear_nav a {
     color: #fff;
@@ -77,6 +78,15 @@ body {
     --cols: 1;
     max-height: 36px;
 }
+option {
+    cursor: pointer;
+}
+.activeOption {
+    color: white;
+    font-style: italic;
+    background: var(--navBG);
+}
+
 .tabButton {
     border: none;
     color: black;
