@@ -21,6 +21,8 @@ let colorsLC = Object.keys(colorsObj);
 let colors = [`Black`, `Red`, `Grey`, `White`];
 let redFirstColors = [`Red`, `Black`, `Grey`, `White`];
 
+let types = [`T-Shirt`, `Sleeveless`, `Crewneck`, `Hoodie`];
+
 function onNavTabClick(e) {
     let ntName = e?.target?.title;
     if (ntName?.toLowerCase() != activeTab?.toLowerCase()) {
@@ -68,6 +70,7 @@ let deprecatedProducts = [
         price: `18.00`,
         featured: false,
         color: colors[0],
+        basePrice: `18.00`,
         usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Tank_Top`,
@@ -85,11 +88,66 @@ let deprecatedProducts = [
         price: `40.00`,
         featured: false,
         color: colors[0],
+        basePrice: `40.00`,
         usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Jacket_W_Embroidery`,
         name: `Lacrosse Jacket w/ Embroidery`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
+    },
+    {
+        sizes,
+        colors,
+        url: `#`,
+        ai: true,
+        type: ``,
+        types: [],
+        size: sizes[0],
+        price: `25.00`,
+        featured: false,
+        color: colors[0],
+        basePrice: `25.00`,
+        usePlaceholder: false,
+        hasColorOptions: false,
+        id: `Lacrosse_Crewneck_Sweatshirt`,
+        name: `Lacrosse Crewneck Sweatshirt`,
+        imageURLs: [`${photosURL}/assets/samples/lacrosse_crewneck_sweatshirt_black.png`],
+    },
+    {
+        sizes,
+        colors,
+        url: `#`,
+        ai: true,
+        type: ``,
+        types: [],
+        size: sizes[0],
+        price: `30.00`,
+        featured: false,
+        color: colors[0],
+        basePrice: `30.00`,
+        usePlaceholder: false,
+        hasColorOptions: false,
+        id: `Lacrosse_Hoodie_Sweatshirt`,
+        name: `Lacrosse Hoodie Sweatshirt`,
+        imageURLs: [`${photosURL}/assets/samples/lacrosse_hoodie_sweatshirt_black.png`],
+    },
+    {
+        sizes,
+        url: `#`,
+        type: ``,
+        ai: false,
+        types: [],
+        size: sizes[0],
+        price: `75.00`,
+        featured: false,
+        basePrice: `75.00`,
+        usePlaceholder: false,
+        hasColorOptions: true,
+        color: colorsObj.black,
+        id: `NGHS_Under_Armour_Hoodie`,
+        name: `NGHS Under Armour Hoodie`,
+        colors: [colorsObj.black, colorsObj.red],
+        imageURLs: [`${photosURL}/assets/official/nghs_ua_sweatshirt_black.png`],
     },
 ]
 
@@ -107,6 +165,7 @@ let oldProducts = [
         usePlaceholder: false,
         hasColorOptions: false,
         price: `108.00 - $116.00`,
+        basePrice: `108.00 - $116.00`,
         id: `NGHS_Lacrosse_Team_Jacket`,
         name: `NGHS Lacrosse Team Jacket`,
         imageURLs: [`${photosURL}/assets/opt/lacrosse_team_jacket.png`],
@@ -116,40 +175,7 @@ let oldProducts = [
 let products = [
     {
         sizes,
-        url: `#`,
-        type: ``,
-        ai: false,
-        types: [],
-        size: sizes[0],
-        price: `35.00`,
-        featured: false,
-        usePlaceholder: false,
-        hasColorOptions: false,
-        colors: redFirstColors,
-        color: redFirstColors[0],
-        id: `NGHS_Under_Armour_T_Shirt`,
-        name: `NGHS Under Armour T-Shirt`,
-        imageURLs: [`${photosURL}/assets/official/nghs_ua_shirt_red.png`],
-    },
-    {
-        sizes,
-        url: `#`,
-        type: ``,
-        ai: false,
-        types: [],
-        size: sizes[0],
-        price: `75.00`,
-        featured: false,
-        usePlaceholder: false,
-        hasColorOptions: true,
-        color: colorsObj.black,
-        id: `NGHS_Under_Armour_Hoodie`,
-        name: `NGHS Under Armour Hoodie`,
-        colors: [colorsObj.black, colorsObj.red],
-        imageURLs: [`${photosURL}/assets/official/nghs_ua_sweatshirt_black.png`],
-    },
-    {
-        sizes,
+        types,
         colors,
         url: `#`,
         ai: false,
@@ -158,13 +184,13 @@ let products = [
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
+        basePrice: `18.00`,
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
         id: `Lacrosse_NGHS_T_Shirt`,
-        name: `Lacrosse NGHS Shirt`,
+        name: `Lacrosse NGHS T-Shirt`,
         image: `lacrosse_northgwinnett`,
-        types: [`T-Shirt`, `Sleeveless`],
         imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
     },
     {
@@ -177,6 +203,7 @@ let products = [
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
+        basePrice: `18.00`,
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
@@ -196,6 +223,7 @@ let products = [
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
+        basePrice: `18.00`,
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
@@ -215,6 +243,7 @@ let products = [
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
+        basePrice: `18.00`,
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
@@ -234,6 +263,7 @@ let products = [
         featured: false,
         type: `T-Shirt`,
         color: colors[0],
+        basePrice: `18.00`,
         image: `NG_bulldogs`,
         usePlaceholder: false,
         hasColorOptions: true,
@@ -245,37 +275,22 @@ let products = [
     },
     {
         sizes,
-        colors,
         url: `#`,
-        ai: true,
-        type: ``,
-        types: [],
+        ai: false,
         size: sizes[0],
-        price: `25.00`,
+        price: `35.00`,
+        type: `T-Shirt`,
         featured: false,
         color: colors[0],
+        basePrice: `35.00`,
         usePlaceholder: false,
-        hasColorOptions: false,
-        id: `Lacrosse_Crewneck_Sweatshirt`,
-        name: `Lacrosse Crewneck Sweatshirt`,
-        imageURLs: [`${photosURL}/assets/samples/lacrosse_crewneck_sweatshirt_black.png`],
-    },
-    {
-        sizes,
-        colors,
-        url: `#`,
-        ai: true,
-        type: ``,
-        types: [],
-        size: sizes[0],
-        price: `30.00`,
-        featured: false,
-        color: colors[0],
-        usePlaceholder: false,
-        hasColorOptions: false,
-        id: `Lacrosse_Hoodie_Sweatshirt`,
-        name: `Lacrosse Hoodie Sweatshirt`,
-        imageURLs: [`${photosURL}/assets/samples/lacrosse_hoodie_sweatshirt_black.png`],
+        hasColorOptions: true,
+        extraClasses: `T-Shirt`,
+        id: `NGHS_Under_Armour_T_Shirt`,
+        name: `NGHS Under Armour T-Shirt`,
+        colors: [colorsObj.black, colorsObj.red],
+        types: [`T-Shirt`, `Sleeveless`, `Hoodie`],
+        imageURLs: [`${photosURL}/assets/official/NG_ua_bulldogs_black.png`],
     },
     {
         sizes,
@@ -286,6 +301,7 @@ let products = [
         size: sizes[0],
         price: `42.00`,
         featured: false,
+        basePrice: `42.00`,
         name: `Rain Jacket`,
         usePlaceholder: false,
         color: colorsObj.black,
@@ -298,7 +314,6 @@ let products = [
         ],
     },
     {
-        sizes,
         url: `#`,
         type: ``,
         ai: false,
@@ -306,6 +321,8 @@ let products = [
         size: sizes[0],
         price: `80.00`,
         featured: false,
+        sizes: [sizes[0]],
+        basePrice: `80.00`,
         color: colorsObj.red,
         usePlaceholder: false,
         hasColorOptions: false,
@@ -328,7 +345,9 @@ if (useTabButtons && (Array.isArray(storedProducts) && storedProducts.length > 0
     products = storedProducts;
 }
 
-function onColorChange(productImageURL, optionValueLC, productImageElement) {
+const getProduct = (productID) => products?.find(p => p?.id == productID);
+
+function onColorChange(product, productImageURL, optionValue, optionValueLC, productImageElement) {
     let [baseURL] = productImageURL.split(`.png`);
     let parts = baseURL.split(`_`);
     let matchedColors = parts.filter(p => colorsLC.includes(p.toLowerCase()));
@@ -340,31 +359,51 @@ function onColorChange(productImageURL, optionValueLC, productImageElement) {
     if (optionValueLC.toLowerCase() !== lastColor.toLowerCase()) {
         productImageElement.src = newImageURL;
     }
+    product.color = optionValue;
 }
 
 function onTypeChange(product, productElement, optionValue, optionValueLC, productImageURL, productImageElement) {
     if (product?.types?.length > 1) {
         if (productElement) {
+            let pType = product?.type;
+            let pTypeLC = pType.toLowerCase();
             let productElementClasses = productElement?.className;
+            let pNameField = productElement?.querySelector(`.productName`);
             let shouldSwitch = !productElementClasses?.includes(optionValue);
-            if (shouldSwitch) {
+            if (shouldSwitch || optionValueLC != pTypeLC) {
                 let newClassName = productElement?.className?.replaceAll(
                     /\b[A-Z][a-zA-Z0-9_-]*\b/g, 
                     optionValue
                 );
+                let ext = `.png`;
                 let newImageURL = productImageURL;
-                let [imgURL] = productImageURL?.split(`.png`);
-                if (optionValueLC == `sleeveless`) {
-                    let sleevelessURL = imgURL?.includes(optionValueLC) ? imgURL : imgURL + `_${optionValueLC}.png`;
-                    newImageURL = sleevelessURL;
+                let [imgURL] = productImageURL?.split(ext);
+                let base = imgURL?.replaceAll(`_${pTypeLC}`, ``);
+                let baseURL = base + ext;
+                let baseTypeURL = base + `_${optionValueLC}` + ext;
+                if (optionValueLC == `t-shirt`) {
+                    newImageURL = baseURL;
                 } else {
-                    let shirtURL = imgURL?.replaceAll(`_sleeveless`, ``) + `.png`;
-                    newImageURL = shirtURL;
+                    newImageURL = baseTypeURL;
                 }
+                product.type = optionValue;
                 product.imageURLs[0] = newImageURL;
                 product.extraClasses = optionValue;
                 productImageElement.src = newImageURL;
                 productElement.className = newClassName;
+                let isUA = base?.includes(`_ua_`);
+                if (optionValueLC == `crewneck`) {
+                    product.price = isUA ? `50.00` : `25.00`;
+                } else if (optionValueLC == `hoodie`) {
+                    product.price = isUA ? `75.00` : `30.00`;
+                } else {
+                    product.price = product.basePrice;
+                }
+                product.name = product.name.replaceAll(pType, optionValue);
+                if (pNameField) {
+                    pNameField.innerHTML = product.name;
+                }
+                setProductForm(product?.id);
             }
         }
     }
@@ -374,14 +413,25 @@ function onShirtFormInput(e) {
     let trgt = e?.target;
     let optionValue = trgt?.value;
     let optionValueLC = optionValue?.toLowerCase();
+    let isSizeSelector = trgt?.className?.includes(`sizeSelector`);
     let isTypeSelector = trgt?.className?.includes(`typeSelector`);
     let isColorSelector = trgt?.className?.includes(`colorSelector`);
+
+    if (isSizeSelector) {
+        let productID = trgt?.id?.replaceAll(`_sizes_dropdown`, ``);
+        if (productID) {
+            let product = getProduct(productID);
+            if (product) {
+                product.size = optionValue;
+            }
+        }
+    }
 
     if (!isColorSelector && !isTypeSelector) return;
 
     let productID = trgt?.id?.replaceAll(`_${isColorSelector ? `options` : `types`}_dropdown`, ``);
     if (productID) {
-        let product = products.find(p => p?.id == productID);
+        let product = getProduct(productID);
         if (product) {
             if (product?.hasColorOptions) {
                 let productElement = document.querySelector(`#product_${productID}`);
@@ -389,7 +439,7 @@ function onShirtFormInput(e) {
                 if (productImageElement) {
                     let productImageURL = productImageElement?.src;
                     if (isColorSelector) {
-                        onColorChange(productImageURL, optionValueLC, productImageElement);
+                        onColorChange(product, productImageURL, optionValue, optionValueLC, productImageElement);
                     } else {
                         onTypeChange(product, productElement, optionValue, optionValueLC, productImageURL, productImageElement);
                     }
@@ -429,7 +479,7 @@ function setProductParam(e) {
     }
 
     let [productID, ] = id?.split(`_${key}_button_`);
-    let product = products?.find(p => p?.id == productID);
+    let product = getProduct(productID);
     if (product) {
         let productSelectorValue = document.querySelector(`#${productID}_${key}s_value`);
         if (productSelectorValue) {
@@ -463,21 +513,26 @@ function setProductParam(e) {
     }
 }
 
-function getProduct(productID) {
-    return products?.find(p => p?.id == productID);
-}
-
 const sizeComponents = {
-    dropdown: (productID, szes = sizes) => `
-        <input type="hidden" name="on0" value="Size" />
-        <select name="os0" id="${productID}_sizes_dropdown" class="sizeSelector cursorPointer">
-            ${szes?.map(s => (`
-                <option value="${s}">
-                    ${s}
-                </option>
-            `))}
-        </select>    
-    `,
+    dropdown: (productID, szes = sizes) => {
+        let prd = getProduct(productID);
+        let pS = prd?.size;
+        if (szes && Array.isArray(szes) && szes?.length > 0) {
+            let fSz = szes?.filter(s => s != pS);
+            szes = [pS, ...fSz];
+        }
+        let html = `
+            <input type="hidden" name="on0" value="Size" />
+            <select name="os0" id="${productID}_sizes_dropdown" class="sizeSelector cursorPointer">
+                ${szes?.map(s => (`
+                    <option value="${s}">
+                        ${s}
+                    </option>
+                `))}
+            </select>    
+        `;
+        return html;
+    },
     tabs: (productID, szes = sizes) => `
         <input type="hidden" name="on0" value="Size" />
         <input id="${productID}_sizes_value" type="hidden" name="os0" value="${getProduct(productID)?.size}" />
@@ -495,52 +550,75 @@ const sizeComponents = {
 };
 
 const typeComponents = {
-    dropdown: (productID, typs) => `
-        <input type="hidden" name="on2" value="Type" />
-        <select name="os2" id="${productID}_types_dropdown" class="typeSelector cursorPointer">
-            ${typs?.map(t => (`
-                <option value="${t}">
-                    ${t}
-                </option>    
-            `))}
-        </select>
-    `,
-    tabs: (productID, typs) => `
-        <input type="hidden" name="on2" value="Type" />
-        <input id="${productID}_types_value" type="hidden" name="os2" value="${getProduct(productID)?.type}" />
-        <div id="${productID}_types_selector" class="typeSelector cursorPointer selectorTabs">
-            ${typs?.map((t) => (`<button 
-                value="${t}" 
-                onclick="setProductParam(event)"
-                id="${productID}_type_button_${t}" 
-                class="tabButton typeButton ${t == getProduct(productID)?.type ? `activeTabButton` : `inactiveTabButton`}" 
-            >
-                ${t}
-            </button>`)).join(``)}
-        </div>
-    `,
-}
-
-const colorComponents = {
-    dropdown: (productID, clrs) => `
-        <div class="colorDropDown ${clrs?.length <= 1 && hideOnDisabled ? `invisible` : ``}">
-            <input type="hidden" name="on1" value="Color" />
-            <select name="os1" ${clrs?.length <= 1 && !hideOnDisabled ? 'disabled' : ''} id="${productID}_options_dropdown" class="colorSelector ${clrs?.length <= 1 ? `isDisabled` : `cursorPointer`}">
-                ${clrs?.map(c => (`
-                    <option value="${c}">
-                        ${c}
+    dropdown: (productID, typs) => {
+        let prd = getProduct(productID);
+        let tTyp = prd?.type;
+        let fTyps = typs?.filter(t => t != tTyp);
+        typs = [tTyp, ...fTyps];
+        let html = `
+            <input type="hidden" name="on2" value="Type" />
+            <select name="os2" id="${productID}_types_dropdown" class="typeSelector cursorPointer">
+                ${typs?.map(t => (`
+                    <option value="${t}">
+                        ${t}
                     </option>    
                 `))}
             </select>
-        </div>
-    `,
+        `;
+        return html;
+    },
+    tabs: (productID, typs) => {
+        let prd = getProduct(productID);
+        let tTyp = prd?.type;
+        let fTyps = typs?.filter(t => t != tTyp);
+        typs = [tTyp, ...fTyps];
+        let html = `
+            <input type="hidden" name="on2" value="Type" />
+            <input id="${productID}_types_value" type="hidden" name="os2" value="${prd?.type}" />
+            <div id="${productID}_types_selector" class="typeSelector cursorPointer selectorTabs">
+                ${typs?.map((t) => (`<button 
+                    value="${t}" 
+                    onclick="setProductParam(event)"
+                    id="${productID}_type_button_${t}" 
+                    class="tabButton typeButton ${t == prd?.type ? `activeTabButton` : `inactiveTabButton`}" 
+                >
+                    ${t}
+                </button>`)).join(``)}
+            </div>
+        `;
+        return html;
+    },
 }
 
-function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
-    let product = products.find(p => p?.id == productID);
+const colorComponents = {
+    dropdown: (productID, clrs) => {
+        let prd = getProduct(productID);
+        let pClr = prd?.color;
+        if (clrs && Array.isArray(clrs) && clrs?.length > 0) {
+            let fClrs = clrs?.filter(c => c != pClr);
+            clrs = [pClr, ...fClrs];
+        }
+        let html = `
+            <div class="colorDropDown ${clrs?.length <= 1 && hideOnDisabled ? `invisible` : ``}">
+                <input type="hidden" name="on1" value="Color" />
+                <select name="os1" ${clrs?.length <= 1 && !hideOnDisabled ? 'disabled' : ''} id="${productID}_options_dropdown" class="colorSelector ${clrs?.length <= 1 ? `isDisabled` : `cursorPointer`}">
+                    ${clrs?.map(c => (`
+                        <option value="${c}">
+                            ${c}
+                        </option>    
+                    `))}
+                </select>
+            </div>
+        `;
+        return html;
+    },
+}
+
+function generateTShirtForm(productID, showSizeSelector = true) {
+    let product = getProduct(productID);
 
     let formHTML = `
-        <form class="paypalFormID_${paypalFormID}" oninput="onShirtFormInput(event)" id="${productID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <form class="paypalFormID_${productID}" oninput="onShirtFormInput(event)" id="${productID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 
            ${product?.types?.length > 1 ? (useTabButtons 
                 ? typeComponents.tabs(productID, product?.types) 
@@ -580,28 +658,30 @@ function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
 }
 
 let productForms = {
-    Lacrosse_Tank_Top: generateTShirtForm(`Lacrosse_Tank_Top`, `DELKC6W9DUWH6`),
-    Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_T_Shirt`, `5ZMCU8LKWQ6QE`),
-    Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Lacrosse_Sticks_T_Shirt`, `BABPTQN2BPLN4`),
-    NGHS_Under_Armour_Hoodie: generateTShirtForm(`NGHS_Under_Armour_Hoodie`, `U76A39SMN9TJG`),
-    NGHS_Under_Armour_T_Shirt: generateTShirtForm(`NGHS_Under_Armour_T_Shirt`, `3WEMBUCAFNWX6`),
-    Lacrosse_Team_Rain_Jacket: generateTShirtForm(`Lacrosse_Team_Rain_Jacket`, `RW2RLGPSK2ZJY`),
-    Lacrosse_Hoodie_Sweatshirt: generateTShirtForm(`Lacrosse_Hoodie_Sweatshirt`, `SCKAVCMJRF6QS`),
-    Girls_Lacrosse_Team_Bag: generateTShirtForm(`Girls_Lacrosse_Team_Bag`, `URVER46QE8EZ8`, false),
-    Lacrosse_Crewneck_Sweatshirt: generateTShirtForm(`Lacrosse_Crewneck_Sweatshirt`, `QASEY2RFG8QZ4`),
-    Lacrosse_Jacket_W_Embroidery: generateTShirtForm(`Lacrosse_Jacket_W_Embroidery`, `PBP42NHJDZXGL`),
-    Lacrosse_NGHS_Bulldogs_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Bulldogs_T_Shirt`, `9USFGBC9UL4H2`),
-    Lacrosse_Vertical_Stick_T_Shirt: generateTShirtForm(`Lacrosse_Vertical_Stick_T_Shirt`, `FY3UDUG6XYZV6`),
-    Lacrosse_NGHS_Black_Bar_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Black_Bar_T_Shirt`, `5KBV7BR3UFLBW`),
+    Lacrosse_Tank_Top: generateTShirtForm(`Lacrosse_Tank_Top`),
+    Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_T_Shirt`),
+    Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Lacrosse_Sticks_T_Shirt`),
+    NGHS_Under_Armour_Hoodie: generateTShirtForm(`NGHS_Under_Armour_Hoodie`),
+    NGHS_Under_Armour_T_Shirt: generateTShirtForm(`NGHS_Under_Armour_T_Shirt`),
+    Lacrosse_Team_Rain_Jacket: generateTShirtForm(`Lacrosse_Team_Rain_Jacket`),
+    Lacrosse_Hoodie_Sweatshirt: generateTShirtForm(`Lacrosse_Hoodie_Sweatshirt`),
+    Girls_Lacrosse_Team_Bag: generateTShirtForm(`Girls_Lacrosse_Team_Bag`, false),
+    Lacrosse_Crewneck_Sweatshirt: generateTShirtForm(`Lacrosse_Crewneck_Sweatshirt`),
+    Lacrosse_Jacket_W_Embroidery: generateTShirtForm(`Lacrosse_Jacket_W_Embroidery`),
+    Lacrosse_NGHS_Bulldogs_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Bulldogs_T_Shirt`),
+    Lacrosse_Vertical_Stick_T_Shirt: generateTShirtForm(`Lacrosse_Vertical_Stick_T_Shirt`),
+    Lacrosse_NGHS_Black_Bar_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Black_Bar_T_Shirt`),
 }
 
 function setProductForm(productID) {
+    let prd = getProduct(productID);
     let productForm = productForms[productID];
+    let showSizes = prd ? prd?.sizes?.length > 1 : true;
     if (productForm) {
+        let frm = generateTShirtForm(productID, showSizes);
         let container = document.querySelector(`#paypal-button-container-${productID}`);
         if (container) {
-            container.innerHTML = ``;
-            container.insertAdjacentHTML(`afterend`, productForm);
+            container.innerHTML = frm;
         }
     }
 }
@@ -620,10 +700,10 @@ function numberFormatWithCommas(numberValue, decimalPlaces = maxDecimals) {
 
 function appendProduct(product, container) {
     let productComponentHTML = `
-        <div id="product_${product?.id}" title="${product?.name}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
+        <div id="product_${product?.id}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
             <a class="productLink">
-                <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImgURL : product?.imageURLs[0]}" alt="${product?.name}" />
-                ${product?.ai ? `<img class="aiBadge" src="${aiBadge}" alt="${product?.name} AI" />` : ``}
+                <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImgURL : product?.imageURLs[0]}" alt="Product Photo" />
+                ${product?.ai ? `<img class="aiBadge" src="${aiBadge}" alt="AI Badge" />` : ``}
                 <div class="productDetails">
                     <h3 class="productName ${product?.featured ? `featuredName` : `standardProductName`}">
                         ${product?.name}
@@ -648,13 +728,13 @@ function getStorage(key) {
     }
 }
 
-function setProducts() {
+function setProducts(prods = products) {
     if (productsSection) {
         if (activeTab == `Spiritwear`) {
             if (!window.location.href.includes(`/edit`)) {
                 productsSection.innerHTML = ``;
-                for (let i = 0; i < products.length; i++) {
-                    let prod = products[i];
+                for (let i = 0; i < prods.length; i++) {
+                    let prod = prods[i];
                     if (prod) {
                         appendProduct(prod, productsSection);
                         setProductForm(prod?.id);
