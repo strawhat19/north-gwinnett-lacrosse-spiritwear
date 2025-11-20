@@ -11,6 +11,8 @@ let placeholderImgURL = `https://5starassets.blob.core.windows.net/athleticsites
 let photosURL = isDev ? `` : githubPhotosURL;
 let useTabButtons = false;
 let hideOnDisabled = true;
+let useSelectorTypeGrid = true;
+let useTabButtonsForType = true;
 let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
 let shopURL = isDev ? `` : `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
 
@@ -172,10 +174,54 @@ let oldProducts = [
     },
 ]
 
-let products = [
+let separatedProducts = [
     {
         sizes,
+        colors,
+        url: `#`,
+        ai: false,
+        size: sizes[0],
+        price: `18.00`,
+        featured: false,
+        type: `T-Shirt`,
+        color: colors[0],
+        basePrice: `18.00`,
+        usePlaceholder: false,
+        hasColorOptions: true,
+        extraClasses: `T-Shirt`,
+        id: `Lacrosse_NGHS_T_Shirt`,
+        name: `Lacrosse NGHS T-Shirt`,
+        image: `lacrosse_northgwinnett`,
+        types: [`T-Shirt`, `Sleeveless`],
+        imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
+    },
+    {
+        sizes,
+        colors,
+        url: `#`,
+        ai: false,
+        size: sizes[0],
+        price: `25.00`,
+        featured: false,
+        type: `Crewneck`,
+        color: colors[0],
+        basePrice: `25.00`,
+        usePlaceholder: false,
+        hasColorOptions: true,
+        extraClasses: `Crewneck`,
+        id: `Lacrosse_NGHS_Crew`,
+        types: [`Crewneck`, `Hoodie`],
+        name: `Lacrosse NGHS Crewneck`,
+        image: `lacrosse_northgwinnett`,
+        imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black_crewneck.png`],
+    },
+]
+
+let products = [
+    // ...separatedProducts,
+    {
         types,
+        sizes,
         colors,
         url: `#`,
         ai: false,
@@ -363,7 +409,7 @@ function onColorChange(product, productImageURL, optionValue, optionValueLC, pro
     setProductForm(product?.id);
 }
 
-function onTypeChange(product, productElement, optionValue, optionValueLC, productImageURL, productImageElement) {
+function onTypeChange(product, productElement, optionValue, optionValueLC, productImageURL, productImageElement, commit = true) {
     if (product?.types?.length > 1) {
         if (productElement) {
             let pType = product?.type;
@@ -404,7 +450,7 @@ function onTypeChange(product, productElement, optionValue, optionValueLC, produ
                 if (pNameField) {
                     pNameField.innerHTML = product.name;
                 }
-                setProductForm(product?.id);
+                if (commit) setProductForm(product?.id);
             }
         }
     }
@@ -498,7 +544,9 @@ function setProductParam(e) {
                     }
                 });
 
-                product[key] = value;
+                if (!isTypeSelector) {
+                    product[key] = value;
+                }
                 productSelectorValue.value = value;
                 
                 let productElement = document.querySelector(`#product_${productID}`);
@@ -506,11 +554,11 @@ function setProductParam(e) {
                 if (productImageElement) {
                     let productImageURL = productImageElement?.src;
                     if (isTypeSelector) {
-                        onTypeChange(product, productElement, value, value?.toLowerCase(), productImageURL, productImageElement);
+                        onTypeChange(product, productElement, value, value?.toLowerCase(), productImageURL, productImageElement, false);
                     }
                 }
 
-                setStorage(`products`, products);
+                setProductForm(product?.id);
             }
         }
     }
@@ -539,7 +587,7 @@ const sizeComponents = {
     tabs: (productID, szes = sizes) => `
         <input type="hidden" name="on0" value="Size" />
         <input id="${productID}_sizes_value" type="hidden" name="os0" value="${getProduct(productID)?.size}" />
-        <div id="${productID}_sizes_selector" class="sizeSelector cursorPointer selectorTabs">
+        <div id="${productID}_sizes_selector" class="sizeSelector cursorPointer selectorTabs ${useSelectorTypeGrid ? `grid` : ``}">
             ${szes?.map((s) => (`<button 
                 value="${s}" 
                 onclick="setProductParam(event)"
@@ -573,17 +621,17 @@ const typeComponents = {
     tabs: (productID, typs) => {
         let prd = getProduct(productID);
         let tTyp = prd?.type;
-        let fTyps = typs?.filter(t => t != tTyp);
-        typs = [tTyp, ...fTyps];
+        // let fTyps = typs?.filter(t => t != tTyp);
+        // typs = [tTyp, ...fTyps];
         let html = `
             <input type="hidden" name="on2" value="Type" />
-            <input id="${productID}_types_value" type="hidden" name="os2" value="${prd?.type}" />
-            <div id="${productID}_types_selector" class="typeSelector cursorPointer selectorTabs">
-                ${typs?.map((t) => (`<button 
+            <input id="${productID}_types_value" type="hidden" name="os2" value="${tTyp}" />
+            <div id="${productID}_types_selector" class="typeSelector cursorPointer selectorTabs ${useSelectorTypeGrid ? `grid` : ``}">
+                ${typs?.map((t, ti) => (`<button 
                     value="${t}" 
                     onclick="setProductParam(event)"
                     id="${productID}_type_button_${t}" 
-                    class="tabButton typeButton ${t == prd?.type ? `activeTabButton` : `inactiveTabButton`}" 
+                    class="tabButton typeButton ${typs?.length == 3 && ti == 2 ? `extendedCol` : ``} ${t == tTyp ? `activeTabButton` : `inactiveTabButton`}" 
                 >
                     ${t}
                 </button>`)).join(``)}
@@ -623,7 +671,7 @@ function generateTShirtForm(productID, showSizeSelector = true) {
     let formHTML = `
         <form class="paypalFormID_${productID}" oninput="onShirtFormInput(event)" id="${productID}_productForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 
-           ${product?.types?.length > 1 ? (useTabButtons 
+           ${product?.types?.length > 1 ? (useTabButtonsForType 
                 ? typeComponents.tabs(productID, product?.types) 
                 : typeComponents.dropdown(productID, product?.types)
             ) : ``}
@@ -662,6 +710,7 @@ function generateTShirtForm(productID, showSizeSelector = true) {
 
 let productForms = {
     Lacrosse_Tank_Top: generateTShirtForm(`Lacrosse_Tank_Top`),
+    Lacrosse_NGHS_Crew: generateTShirtForm(`Lacrosse_NGHS_Crew`),
     Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_T_Shirt`),
     Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Lacrosse_Sticks_T_Shirt`),
     NGHS_Under_Armour_Hoodie: generateTShirtForm(`NGHS_Under_Armour_Hoodie`),
@@ -682,9 +731,9 @@ function setProductForm(productID) {
     let showSizes = prd ? prd?.sizes?.length > 1 : true;
     if (productForm) {
         let frm = generateTShirtForm(productID, showSizes);
-        let container = document.querySelector(`#paypal-button-container-${productID}`);
-        if (container) {
-            container.innerHTML = frm;
+        let containers = document.querySelectorAll(`.paypal-button-container-${productID}`);
+        if (containers) {
+            containers.forEach(c => c.innerHTML = frm);
         }
     }
 }
@@ -711,7 +760,7 @@ function appendProduct(product, container) {
                     <h3 class="productName ${product?.featured ? `featuredName` : `standardProductName`}">
                         ${product?.name}
                     </h3>
-                    <div id="paypal-button-container-${product?.id}" class="paypalFieldsContainer productPrice">
+                    <div id="paypal-button-container-${product?.id}" class="paypalFieldsContainer productPrice paypal-button-container-${product?.id}">
                         <p>$${product?.price?.includes(`-`) ? product?.price : numberFormatWithCommas(product?.price) ?? `0${maxDecimals > 0 ? `.00` : ``}`}</p>
                     </div>
                 </div>
