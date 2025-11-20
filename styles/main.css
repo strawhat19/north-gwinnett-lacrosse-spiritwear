@@ -1,6 +1,8 @@
 :root {
     --main: #d72327;
     --paypal-yellow: #ffd140;
+    --dropdown-bg: rgba(240, 240, 240, 1);
+    --dropdown-bg-disabled: rgba(244, 244, 244, 1);
     --transition: 0.24s cubic-bezier(0.77, 0.2, 0.05, 1);  
     --transition-5s: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);  
 }
@@ -48,14 +50,32 @@ body {
     margin-top: 10px;
     padding-left: 10px;
     border-radius: 10px;
-    background: rgba(240, 240, 240, 1);
+    background: var(--dropdown-bg);
+}
+.colorDropDown:has(.isDisabled) {
+    position: relative;
+}
+.colorDropDown:has(.isDisabled)::after {
+    --sz: 15px;
+    content: '';
+    right: 4px;
+    top: 43%;
+    position: absolute;
+    min-width: var(--sz);
+    min-height: var(--sz);
+    background: var(--dropdown-bg-disabled);
 }
 .productsContainer .formFieldsContainer {
+    --cols: 2;
     gap: 10px;
     width: 100%;
     display: grid;
     margin-bottom: 12px;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(var(--cols), 1fr);
+}
+.productsContainer .formFieldsContainer:has(.isDisabled) {
+    --cols: 1;
+    max-height: 36px;
 }
 .tabButton {
     border: none;
@@ -223,6 +243,8 @@ body {
     background: #111;
     text-align: center;
 }
+.hidden { display: none; }
+.invisible { opacity: 0; pointer-events: none; }
 .cursorPointer { cursor: pointer; }
 .hoverLink {
     position: relative;

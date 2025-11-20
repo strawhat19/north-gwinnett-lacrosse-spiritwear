@@ -10,6 +10,7 @@ let placeholderImgURL = `https://5starassets.blob.core.windows.net/athleticsites
 
 let photosURL = isDev ? `` : githubPhotosURL;
 let useTabButtons = false;
+let hideOnDisabled = true;
 let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
 let shopURL = isDev ? `` : `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
 
@@ -54,6 +55,63 @@ function setNavTabs() {
         }
     }
 }
+
+let deprecatedProducts = [
+    {
+        sizes,
+        colors,
+        url: `#`,
+        ai: true,
+        type: ``,
+        types: [],
+        size: sizes[0],
+        price: `18.00`,
+        featured: false,
+        color: colors[0],
+        usePlaceholder: false,
+        hasColorOptions: false,
+        id: `Lacrosse_Tank_Top`,
+        name: `Lacrosse Tank Top`,
+        imageURLs: [`${photosURL}/assets/samples/lacrosse_tank_top_black.png`],
+    },
+    {
+        sizes,
+        colors,
+        url: `#`,
+        ai: true,
+        type: ``,
+        types: [],
+        size: sizes[0],
+        price: `40.00`,
+        featured: false,
+        color: colors[0],
+        usePlaceholder: false,
+        hasColorOptions: false,
+        id: `Lacrosse_Jacket_W_Embroidery`,
+        name: `Lacrosse Jacket w/ Embroidery`,
+        imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
+    },
+]
+
+let oldProducts = [
+    {
+        sizes,
+        colors,
+        url: `#`,
+        type: ``,
+        types: [],
+        ai: false,
+        size: sizes[0],
+        featured: false,
+        color: colors[0],
+        usePlaceholder: false,
+        hasColorOptions: false,
+        price: `108.00 - $116.00`,
+        id: `NGHS_Lacrosse_Team_Jacket`,
+        name: `NGHS Lacrosse Team Jacket`,
+        imageURLs: [`${photosURL}/assets/opt/lacrosse_team_jacket.png`],
+    },
+]
 
 let products = [
     {
@@ -185,23 +243,6 @@ let products = [
         name: `Lacrosse NGHS Bulldogs Shirt`,
         imageURLs: [`${photosURL}/assets/official/NG_bulldogs_black.png`],
     },
-    // {
-    //     sizes,
-    //     colors,
-    //     url: `#`,
-    //     ai: true,
-    //     type: ``,
-    //     types: [],
-    //     size: sizes[0],
-    //     price: `18.00`,
-    //     featured: false,
-    //     color: colors[0],
-    //     usePlaceholder: false,
-    //     hasColorOptions: false,
-    //     id: `Lacrosse_Tank_Top`,
-    //     name: `Lacrosse Tank Top`,
-    //     imageURLs: [`${photosURL}/assets/samples/lacrosse_tank_top_black.png`],
-    // },
     {
         sizes,
         colors,
@@ -236,26 +277,8 @@ let products = [
         name: `Lacrosse Hoodie Sweatshirt`,
         imageURLs: [`${photosURL}/assets/samples/lacrosse_hoodie_sweatshirt_black.png`],
     },
-    // {
-    //     sizes,
-    //     colors,
-    //     url: `#`,
-    //     ai: true,
-    //     type: ``,
-    //     types: [],
-    //     size: sizes[0],
-    //     price: `40.00`,
-    //     featured: false,
-    //     color: colors[0],
-    //     usePlaceholder: false,
-    //     hasColorOptions: false,
-    //     id: `Lacrosse_Jacket_W_Embroidery`,
-    //     name: `Lacrosse Jacket w/ Embroidery`,
-    //     imageURLs: [`${photosURL}/assets/samples/lacrosse_jacket_w_embroidery_g_black.png`],
-    // },
     {
         sizes,
-        colors,
         url: `#`,
         ai: false,
         type: ``,
@@ -263,33 +286,17 @@ let products = [
         size: sizes[0],
         price: `42.00`,
         featured: false,
-        color: colors[0],
         name: `Rain Jacket`,
         usePlaceholder: false,
+        color: colorsObj.black,
         hasColorOptions: false,
+        colors: [colorsObj.black],
         id: `Lacrosse_Team_Rain_Jacket`,
         imageURLs: [
-            `${photosURL}/assets/official/models/NGHS_Rain_Jacket_w_Model.png`,
+            `${photosURL}/assets/official/models/NGHS_Rain_Jacket_w_Model.png`, 
             // `${photosURL}/assets/samples/lacrosse_team_rain_jacket_black.png`,
         ],
     },
-    // {
-    //     sizes,
-    //     colors,
-    //     url: `#`,
-    //     type: ``,
-    //     types: [],
-    //     ai: false,
-    //     size: sizes[0],
-    //     featured: false,
-    //     color: colors[0],
-    //     usePlaceholder: false,
-    //     hasColorOptions: false,
-    //     price: `108.00 - $116.00`,
-    //     id: `NGHS_Lacrosse_Team_Jacket`,
-    //     name: `NGHS Lacrosse Team Jacket`,
-    //     imageURLs: [`${photosURL}/assets/opt/lacrosse_team_jacket.png`],
-    // },
     {
         sizes,
         url: `#`,
@@ -299,14 +306,16 @@ let products = [
         size: sizes[0],
         price: `80.00`,
         featured: false,
+        color: colorsObj.red,
         usePlaceholder: false,
-        colors: redFirstColors,
         hasColorOptions: false,
-        color: redFirstColors[0],
+        colors: [colorsObj.red],
         id: `Girls_Lacrosse_Team_Bag`,
         name: `Girls Lacrosse Team Bag`,
         imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
     },
+    // ...oldProducts,
+    // ...deprecatedProducts,
 ]?.map((p, pi) => ({ 
     ...p, 
     id: p?.id ? p?.id : pi + 1, 
@@ -512,6 +521,21 @@ const typeComponents = {
     `,
 }
 
+const colorComponents = {
+    dropdown: (productID, clrs) => `
+        <div class="colorDropDown ${clrs?.length <= 1 && hideOnDisabled ? `invisible` : ``}">
+            <input type="hidden" name="on1" value="Color" />
+            <select name="os1" ${clrs?.length <= 1 && !hideOnDisabled ? 'disabled' : ''} id="${productID}_options_dropdown" class="colorSelector ${clrs?.length <= 1 ? `isDisabled` : `cursorPointer`}">
+                ${clrs?.map(c => (`
+                    <option value="${c}">
+                        ${c}
+                    </option>    
+                `))}
+            </select>
+        </div>
+    `,
+}
+
 function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
     let product = products.find(p => p?.id == productID);
 
@@ -529,14 +553,7 @@ function generateTShirtForm(productID, paypalFormID, showSizeSelector = true) {
                     : sizeComponents.dropdown(productID, product?.sizes)
                 ) : ``}
 
-                <input type="hidden" name="on1" value="Color" />
-                <select name="os1" id="${productID}_options_dropdown" class="colorSelector cursorPointer">
-                    ${product?.colors?.map(c => (`
-                        <option value="${c}">
-                            ${c}
-                        </option>    
-                    `))}
-                </select>
+                ${colorComponents.dropdown(productID, product?.colors)}
             </div>
 
             <input type="hidden" name="cmd" value="_cart" />
