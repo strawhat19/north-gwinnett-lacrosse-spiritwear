@@ -211,7 +211,7 @@ option {
 }
 .imgBadge {
     --sz: 60px;
-    top: -20px;
+    top: -5px;
     right: -7px;
     position: absolute;
     max-width: var(--sz) !important;
