@@ -209,14 +209,16 @@ option {
     text-decoration: none !important;
     transition: var(--transition-5s);
 }
-.aiBadge {
-    --sz: 52px;
-    top: 0;
-    right: 0;
+.imgBadge {
+    --sz: 60px;
+    top: -20px;
+    right: -7px;
     position: absolute;
-    transform: rotate(30deg);
     max-width: var(--sz) !important;
     max-height: var(--sz) !important;
+}
+.aiBadge {
+    transform: rotate(30deg);
 }
 .product a h3 {
     margin-left: auto;

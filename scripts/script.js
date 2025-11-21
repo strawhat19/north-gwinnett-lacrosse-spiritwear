@@ -15,6 +15,7 @@ let hideOnDisabled = true;
 let useSelectorTypeGrid = true;
 let useTabButtonsForType = true;
 let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
+let placeholderBadge = `${photosURL}/assets/ai-generated/placeholder-badge-alt-shadow.png`;
 let shopURL = isDev ? `` : `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
 
 let navTabs = [{ url: `#`, name: activeTab }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
@@ -69,7 +70,6 @@ let deprecatedProducts = [
         sizes,
         colors,
         url: `#`,
-        ai: true,
         type: ``,
         types: [],
         size: sizes[0],
@@ -87,7 +87,6 @@ let deprecatedProducts = [
         sizes,
         colors,
         url: `#`,
-        ai: true,
         type: ``,
         types: [],
         size: sizes[0],
@@ -105,7 +104,6 @@ let deprecatedProducts = [
         sizes,
         colors,
         url: `#`,
-        ai: true,
         type: ``,
         types: [],
         size: sizes[0],
@@ -123,7 +121,6 @@ let deprecatedProducts = [
         sizes,
         colors,
         url: `#`,
-        ai: true,
         type: ``,
         types: [],
         size: sizes[0],
@@ -141,7 +138,6 @@ let deprecatedProducts = [
         sizes,
         url: `#`,
         type: ``,
-        ai: false,
         types: [],
         size: sizes[0],
         price: `75.00`,
@@ -164,7 +160,6 @@ let oldProducts = [
         url: `#`,
         type: ``,
         types: [],
-        ai: false,
         size: sizes[0],
         featured: false,
         color: colors[0],
@@ -183,7 +178,6 @@ let separatedProducts = [
         sizes,
         colors,
         url: `#`,
-        ai: false,
         size: sizes[0],
         price: `18.00`,
         featured: false,
@@ -203,7 +197,6 @@ let separatedProducts = [
         sizes,
         colors,
         url: `#`,
-        ai: false,
         size: sizes[0],
         price: `25.00`,
         featured: false,
@@ -228,7 +221,6 @@ let products = [
         sizes,
         colors,
         url: `#`,
-        ai: false,
         size: sizes[0],
         price: `18.00`,
         featured: false,
@@ -242,12 +234,12 @@ let products = [
         name: `Lacrosse NGHS T-Shirt`,
         image: `lacrosse_northgwinnett`,
         imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
+        placeholders: [`black_sleeveless`, `crewneck`, `black_hoodie`, `red_hoodie`, `grey_hoodie`],
     },
     {
         sizes,
         colors,
         url: `#`,
-        ai: false,
         size: sizes[0],
         price: `18.00`,
         featured: false,
@@ -267,7 +259,6 @@ let products = [
         sizes,
         colors,
         url: `#`,
-        ai: false,
         size: sizes[0],
         price: `18.00`,
         featured: false,
@@ -287,7 +278,6 @@ let products = [
         sizes,
         colors,
         url: `#`,
-        ai: false,
         size: sizes[0],
         price: `18.00`,
         featured: false,
@@ -307,7 +297,6 @@ let products = [
         sizes,
         colors,
         url: `#`,
-        ai: false,
         size: sizes[0],
         price: `18.00`,
         featured: false,
@@ -326,7 +315,6 @@ let products = [
     {
         sizes,
         url: `#`,
-        ai: false,
         size: sizes[0],
         price: `35.00`,
         type: `T-Shirt`,
@@ -345,7 +333,6 @@ let products = [
     {
         sizes,
         url: `#`,
-        ai: false,
         type: ``,
         types: [],
         size: sizes[0],
@@ -366,7 +353,6 @@ let products = [
     {
         url: `#`,
         type: ``,
-        ai: false,
         types: [],
         size: sizes[0],
         price: `80.00`,
@@ -397,6 +383,20 @@ if (useTabButtons && (Array.isArray(storedProducts) && storedProducts.length > 0
 
 const getProduct = (productID) => products?.find(p => p?.id == productID);
 
+const setProductImage = (product, productImageElement, newImageURL) => {
+    product.imageURLs[0] = newImageURL;
+    productImageElement.src = newImageURL;
+    let productPlaceholderBadge = document.querySelector(`#placeholderBadge_${product?.id}`);
+    if (productPlaceholderBadge) {
+        let isPlaceholder = product?.placeholders?.some(p => newImageURL?.includes(p));
+        if (isPlaceholder) {
+            productPlaceholderBadge.className = productPlaceholderBadge?.className?.replaceAll(`hidden`, `shown`);
+        } else {
+            productPlaceholderBadge.className = productPlaceholderBadge?.className?.replaceAll(`shown`, `hidden`);
+        }
+    }
+}
+
 function onColorChange(product, productImageURL, optionValue, optionValueLC, productImageElement) {
     let [baseURL] = productImageURL.split(`.png`);
     let parts = baseURL.split(`_`);
@@ -407,7 +407,7 @@ function onColorChange(product, productImageURL, optionValue, optionValueLC, pro
     parts[lastIndex] = optionValueLC;
     let newImageURL = parts.join(`_`) + `.png`;
     if (optionValueLC.toLowerCase() !== lastColor.toLowerCase()) {
-        productImageElement.src = newImageURL;
+        setProductImage(product, productImageElement, newImageURL);
     }
     product.color = optionValue;
     setProductForm(product?.id);
@@ -438,9 +438,8 @@ function onTypeChange(product, productElement, optionValue, optionValueLC, produ
                     newImageURL = baseTypeURL;
                 }
                 product.type = optionValue;
-                product.imageURLs[0] = newImageURL;
+                setProductImage(product, productImageElement, newImageURL);
                 product.extraClasses = optionValue;
-                productImageElement.src = newImageURL;
                 productElement.className = newClassName;
                 let isUA = base?.includes(`_ua_`);
                 if (optionValueLC == `crewneck`) {
@@ -718,33 +717,13 @@ function generateTShirtForm(productID, showSizeSelector = true) {
     return formHTML;
 }
 
-let productForms = {
-    Lacrosse_Tank_Top: generateTShirtForm(`Lacrosse_Tank_Top`),
-    Lacrosse_NGHS_Crew: generateTShirtForm(`Lacrosse_NGHS_Crew`),
-    Lacrosse_NGHS_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_T_Shirt`),
-    Lacrosse_Sticks_T_Shirt: generateTShirtForm(`Lacrosse_Sticks_T_Shirt`),
-    NGHS_Under_Armour_Hoodie: generateTShirtForm(`NGHS_Under_Armour_Hoodie`),
-    NGHS_Under_Armour_T_Shirt: generateTShirtForm(`NGHS_Under_Armour_T_Shirt`),
-    Lacrosse_Team_Rain_Jacket: generateTShirtForm(`Lacrosse_Team_Rain_Jacket`),
-    Lacrosse_Hoodie_Sweatshirt: generateTShirtForm(`Lacrosse_Hoodie_Sweatshirt`),
-    Girls_Lacrosse_Team_Bag: generateTShirtForm(`Girls_Lacrosse_Team_Bag`, false),
-    Lacrosse_Crewneck_Sweatshirt: generateTShirtForm(`Lacrosse_Crewneck_Sweatshirt`),
-    Lacrosse_Jacket_W_Embroidery: generateTShirtForm(`Lacrosse_Jacket_W_Embroidery`),
-    Lacrosse_NGHS_Bulldogs_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Bulldogs_T_Shirt`),
-    Lacrosse_Vertical_Stick_T_Shirt: generateTShirtForm(`Lacrosse_Vertical_Stick_T_Shirt`),
-    Lacrosse_NGHS_Black_Bar_T_Shirt: generateTShirtForm(`Lacrosse_NGHS_Black_Bar_T_Shirt`),
-}
-
 function setProductForm(productID) {
     let prd = getProduct(productID);
-    let productForm = productForms[productID];
     let showSizes = prd ? prd?.sizes?.length > 1 : true;
-    if (productForm) {
-        let frm = generateTShirtForm(productID, showSizes);
-        let containers = document.querySelectorAll(`.paypal-button-container-${productID}`);
-        if (containers) {
-            containers.forEach(c => c.innerHTML = frm);
-        }
+    let frm = generateTShirtForm(productID, showSizes);
+    let containers = document.querySelectorAll(`.paypal-button-container-${productID}`);
+    if (containers) {
+        containers.forEach(c => c.innerHTML = frm);
     }
 }
 
@@ -765,7 +744,7 @@ function appendProduct(product, container) {
         <div id="product_${product?.id}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
             <a class="productLink">
                 <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImgURL : product?.imageURLs[0]}" alt="Product Photo" />
-                ${product?.ai ? `<img class="aiBadge" src="${aiBadge}" alt="AI Badge" />` : ``}
+                <img id="placeholderBadge_${product?.id}" class="imgBadge placeholderBadge hidden" src="${placeholderBadge}" alt="Image Badge" />
                 <div class="productDetails">
                     <h3 id="${product?.id}_productName" title="${product?.name}" class="productName ${product?.name?.length >= longProductNameLen ? `longProductName` : `medProductName`} ${product?.featured ? `featuredName` : `standardProductName`}">
                         ${product?.name}
