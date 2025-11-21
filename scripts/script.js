@@ -7,16 +7,18 @@ let isDev = window.location.href.includes(`index`) || window.location.href.inclu
 
 let placeholderImageURL = `https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f`;
 let githubPhotosURL = `https://raw.githubusercontent.com/strawhat19/north-gwinnett-lacrosse-spiritwear/refs/heads/main`;
-let placeholderImgURL = `https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png`;
+let bulldogIconOfficial = `https://5starassets.blob.core.windows.net/athleticsites/2527115/833/images/98447016-4fe3-48c4-9150-a91b861c821a.png`;
 
 let photosURL = isDev ? `` : githubPhotosURL;
 let useTabButtons = false;
 let hideOnDisabled = true;
 let useSelectorTypeGrid = true;
 let useTabButtonsForType = true;
+// let placeholderImgURL = bulldogIconOfficial;
 let aiBadge = `${photosURL}/assets/ai-generated/ai-badge.svg`;
-let placeholderBadge = `${photosURL}/assets/ai-generated/placeholder-badge-alt-shadow.png`;
 let shopURL = isDev ? `` : `https://www.nghsbulldogsathletics.com/lacrosse-spiritwear`;
+let placeholderBadge = `${photosURL}/assets/ai-generated/placeholder-badge-alt-shadow.png`;
+let placeholderImgURL = `${photosURL}/assets/graphics/image-coming-soon-placeholder-logo.png`;
 
 let navTabs = [{ url: `#`, name: activeTab }, /* { url: `#`, name: `Sponsorship` } */]?.map((nt, nti) => ({ ...nt, id: nti + 1, }));
 
@@ -77,7 +79,6 @@ let deprecatedProducts = [
         featured: false,
         color: colors[0],
         basePrice: `18.00`,
-        usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Tank_Top`,
         name: `Lacrosse Tank Top`,
@@ -94,7 +95,6 @@ let deprecatedProducts = [
         featured: false,
         color: colors[0],
         basePrice: `40.00`,
-        usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Jacket_W_Embroidery`,
         name: `Lacrosse Jacket w/ Embroidery`,
@@ -111,7 +111,6 @@ let deprecatedProducts = [
         featured: false,
         color: colors[0],
         basePrice: `25.00`,
-        usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Crewneck_Sweatshirt`,
         name: `Lacrosse Crewneck Sweatshirt`,
@@ -128,7 +127,6 @@ let deprecatedProducts = [
         featured: false,
         color: colors[0],
         basePrice: `30.00`,
-        usePlaceholder: false,
         hasColorOptions: false,
         id: `Lacrosse_Hoodie_Sweatshirt`,
         name: `Lacrosse Hoodie Sweatshirt`,
@@ -143,7 +141,6 @@ let deprecatedProducts = [
         price: `75.00`,
         featured: false,
         basePrice: `75.00`,
-        usePlaceholder: false,
         hasColorOptions: true,
         color: colorsObj.black,
         id: `NGHS_Under_Armour_Hoodie`,
@@ -163,7 +160,6 @@ let oldProducts = [
         size: sizes[0],
         featured: false,
         color: colors[0],
-        usePlaceholder: false,
         hasColorOptions: false,
         price: `108.00 - $116.00`,
         basePrice: `108.00 - $116.00`,
@@ -184,13 +180,12 @@ let separatedProducts = [
         type: `T-Shirt`,
         color: colors[0],
         basePrice: `18.00`,
-        usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
         id: `Lacrosse_NGHS_T_Shirt`,
         name: `Lacrosse NGHS T-Shirt`,
         image: `lacrosse_northgwinnett`,
-        types: [`T-Shirt`, `Sleeveless`],
+        types: [`T-Shirt`, `Sleeveless`, `Hoodie`],
         imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
     },
     {
@@ -203,7 +198,6 @@ let separatedProducts = [
         type: `Crewneck`,
         color: colors[0],
         basePrice: `25.00`,
-        usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `Crewneck`,
         id: `Lacrosse_NGHS_Crew`,
@@ -222,78 +216,20 @@ let products = [
         colors,
         url: `#`,
         size: sizes[0],
-        price: `18.00`,
-        featured: false,
+        price: `35.00`,
         type: `T-Shirt`,
+        featured: false,
         color: colors[0],
-        basePrice: `18.00`,
-        usePlaceholder: false,
+        basePrice: `35.00`,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
-        id: `Lacrosse_NGHS_T_Shirt`,
-        name: `Lacrosse NGHS T-Shirt`,
-        image: `lacrosse_northgwinnett`,
-        imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
-        placeholders: [`black_sleeveless`, `crewneck`, `black_hoodie`, `red_hoodie`, `grey_hoodie`],
+        id: `NGHS_Under_Armour_T_Shirt`,
+        name: `NGHS Under Armour T-Shirt`,
+        comingSoon: [`crewneck`, `grey_hoodie`, `white_hoodie`],
+        imageURLs: [`${photosURL}/assets/official/NG_ua_bulldogs_black.png`],
     },
     {
-        sizes,
-        colors,
-        url: `#`,
-        size: sizes[0],
-        price: `18.00`,
-        featured: false,
-        type: `T-Shirt`,
-        color: colors[0],
-        basePrice: `18.00`,
-        usePlaceholder: false,
-        hasColorOptions: true,
-        extraClasses: `T-Shirt`,
-        image: `lacrosssestick_vertical`,
-        types: [`T-Shirt`, `Sleeveless`],
-        id: `Lacrosse_Vertical_Stick_T_Shirt`,
-        name: `Lacrosse Vertical Stick T-Shirt`,
-        imageURLs: [`${photosURL}/assets/official/lacrosssestick_vertical_black.png`],
-    },
-    {
-        sizes,
-        colors,
-        url: `#`,
-        size: sizes[0],
-        price: `18.00`,
-        featured: false,
-        type: `T-Shirt`,
-        color: colors[0],
-        basePrice: `18.00`,
-        usePlaceholder: false,
-        hasColorOptions: true,
-        extraClasses: `T-Shirt`,
-        image: `northgwinnett_black_bar`,
-        types: [`T-Shirt`, `Sleeveless`],
-        id: `Lacrosse_NGHS_Black_Bar_T_Shirt`,
-        name: `Lacrosse NGHS Black Bar T-Shirt`,
-        imageURLs: [`${photosURL}/assets/official/northgwinnett_black_bar_black.png`],
-    },
-    {
-        sizes,
-        colors,
-        url: `#`,
-        size: sizes[0],
-        price: `18.00`,
-        featured: false,
-        type: `T-Shirt`,
-        color: colors[0],
-        basePrice: `18.00`,
-        usePlaceholder: false,
-        hasColorOptions: true,
-        extraClasses: `T-Shirt`,
-        id: `Lacrosse_Sticks_T_Shirt`,
-        image: `lacrosse_sticks_shirt`,
-        name: `Lacrosse Sticks T-Shirt`,
-        types: [`T-Shirt`, `Sleeveless`],
-        imageURLs: [`${photosURL}/assets/official/lacrosse_sticks_shirt_black.png`],
-    },
-    {
+        types,
         sizes,
         colors,
         url: `#`,
@@ -304,31 +240,69 @@ let products = [
         color: colors[0],
         basePrice: `18.00`,
         image: `NG_bulldogs`,
-        usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
-        types: [`T-Shirt`, `Sleeveless`],
         id: `Lacrosse_NGHS_Bulldogs_T_Shirt`,
         name: `Lacrosse NGHS Bulldogs T-Shirt`,
+        comingSoon: [`crewneck`, `red_hoodie`, `grey_hoodie`],
         imageURLs: [`${photosURL}/assets/official/NG_bulldogs_black.png`],
     },
     {
+        types,
         sizes,
+        colors,
         url: `#`,
         size: sizes[0],
-        price: `35.00`,
-        type: `T-Shirt`,
+        price: `18.00`,
         featured: false,
+        type: `T-Shirt`,
         color: colors[0],
-        basePrice: `35.00`,
-        usePlaceholder: false,
+        basePrice: `18.00`,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
-        types: [`T-Shirt`, `Hoodie`],
-        id: `NGHS_Under_Armour_T_Shirt`,
-        name: `NGHS Under Armour T-Shirt`,
-        colors: [colorsObj.black, colorsObj.red],
-        imageURLs: [`${photosURL}/assets/official/NG_ua_bulldogs_black.png`],
+        id: `Lacrosse_NGHS_T_Shirt`,
+        name: `Lacrosse NGHS T-Shirt`,
+        image: `lacrosse_northgwinnett`,
+        imageURLs: [`${photosURL}/assets/official/lacrosse_northgwinnett_black.png`],
+        placeholders: [`black_sleeveless`, `crewneck`, `black_hoodie`, `red_hoodie`, `grey_hoodie`],
+    },
+    {
+        types,
+        sizes,
+        colors,
+        url: `#`,
+        size: sizes[0],
+        price: `18.00`,
+        featured: false,
+        type: `T-Shirt`,
+        color: colors[0],
+        basePrice: `18.00`,
+        hasColorOptions: true,
+        extraClasses: `T-Shirt`,
+        image: `northgwinnett_black_bar`,
+        id: `Lacrosse_NGHS_Black_Bar_T_Shirt`,
+        name: `Lacrosse NGHS Black Bar T-Shirt`,
+        comingSoon: [`crewneck`, `red_hoodie`, `grey_hoodie`],
+        imageURLs: [`${photosURL}/assets/official/northgwinnett_black_bar_black.png`],
+    },
+    {
+        types,
+        sizes,
+        colors,
+        url: `#`,
+        size: sizes[0],
+        price: `18.00`,
+        featured: false,
+        type: `T-Shirt`,
+        color: colors[0],
+        basePrice: `18.00`,
+        hasColorOptions: true,
+        extraClasses: `T-Shirt`,
+        id: `Lacrosse_Sticks_T_Shirt`,
+        image: `lacrosse_sticks_shirt`,
+        name: `Lacrosse Sticks T-Shirt`,
+        comingSoon: [`crewneck`, `red_hoodie`, `grey_hoodie`],
+        imageURLs: [`${photosURL}/assets/official/lacrosse_sticks_shirt_black.png`],
     },
     {
         sizes,
@@ -340,7 +314,6 @@ let products = [
         featured: false,
         basePrice: `42.00`,
         name: `Rain Jacket`,
-        usePlaceholder: false,
         color: colorsObj.black,
         hasColorOptions: false,
         colors: [colorsObj.black],
@@ -360,12 +333,30 @@ let products = [
         sizes: [sizes[0]],
         basePrice: `80.00`,
         color: colorsObj.red,
-        usePlaceholder: false,
         hasColorOptions: false,
         colors: [colorsObj.red],
         id: `Girls_Lacrosse_Team_Bag`,
         name: `Girls Lacrosse Team Bag`,
         imageURLs: [`https://5starassets.blob.core.windows.net/multi-media/2527115/hub/backpack.png`],
+    },
+    {
+        types,
+        sizes,
+        colors,
+        url: `#`,
+        size: sizes[0],
+        price: `18.00`,
+        featured: false,
+        type: `T-Shirt`,
+        color: colors[0],
+        basePrice: `18.00`,
+        hasColorOptions: true,
+        extraClasses: `T-Shirt`,
+        image: `lacrosssestick_vertical`,
+        id: `Lacrosse_Vertical_Stick_T_Shirt`,
+        name: `Lacrosse Vertical Stick T-Shirt`,
+        comingSoon: [`crewneck`, `red_hoodie`, `grey_hoodie`, `black_hoodie`],
+        imageURLs: [`${photosURL}/assets/official/lacrosssestick_vertical_black.png`],
     },
     // ...oldProducts,
     // ...deprecatedProducts,
@@ -384,6 +375,17 @@ if (useTabButtons && (Array.isArray(storedProducts) && storedProducts.length > 0
 const getProduct = (productID) => products?.find(p => p?.id == productID);
 
 const setProductImage = (product, productImageElement, newImageURL) => {
+    let productPlaceholderImage = document.querySelector(`#productImage_${product?.id}_placeholder`);
+    if (productPlaceholderImage) {
+        let comingSoon = product?.comingSoon?.some(p => newImageURL?.includes(p));
+        if (comingSoon) {
+            productImageElement.className = productImageElement?.className?.replaceAll(`shown`, `hidden`);
+            productPlaceholderImage.className = productPlaceholderImage?.className?.replaceAll(`hidden`, `shown`);
+        } else {
+            productImageElement.className = productImageElement?.className?.replaceAll(`hidden`, `shown`);
+            productPlaceholderImage.className = productPlaceholderImage?.className?.replaceAll(`shown`, `hidden`);
+        }
+    }
     product.imageURLs[0] = newImageURL;
     productImageElement.src = newImageURL;
     let productPlaceholderBadge = document.querySelector(`#placeholderBadge_${product?.id}`);
@@ -398,6 +400,7 @@ const setProductImage = (product, productImageElement, newImageURL) => {
 }
 
 function onColorChange(product, productImageURL, optionValue, optionValueLC, productImageElement) {
+    let pColor = product?.color;
     let [baseURL] = productImageURL.split(`.png`);
     let parts = baseURL.split(`_`);
     let matchedColors = parts.filter(p => colorsLC.includes(p.toLowerCase()));
@@ -406,7 +409,8 @@ function onColorChange(product, productImageURL, optionValue, optionValueLC, pro
     let lastIndex = parts.lastIndexOf(lastColor);
     parts[lastIndex] = optionValueLC;
     let newImageURL = parts.join(`_`) + `.png`;
-    if (optionValueLC.toLowerCase() !== lastColor.toLowerCase()) {
+    let pColors = [lastColor, pColor]?.map(clr => clr?.toLowerCase());
+    if (!pColors?.includes(optionValueLC)) {
         setProductImage(product, productImageElement, newImageURL);
     }
     product.color = optionValue;
@@ -743,7 +747,8 @@ function appendProduct(product, container) {
     let productComponentHTML = `
         <div id="product_${product?.id}" class="product ${product?.featured ? `featured` : ``} ${product?.extraClasses != `` ? product?.extraClasses : ``}">
             <a class="productLink">
-                <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImgURL : product?.imageURLs[0]}" alt="Product Photo" />
+                <img id="productImage_${product?.id}" class="productImage shown" src="${product?.imageURLs[0]}" alt="Product Photo" />
+                <img id="productImage_${product?.id}_placeholder" class="productImage productImagePlaceholder hidden" src="${placeholderImgURL}" alt="Product Photo Placeholder" />
                 <img id="placeholderBadge_${product?.id}" class="imgBadge placeholderBadge hidden" src="${placeholderBadge}" alt="Image Badge" />
                 <div class="productDetails">
                     <h3 id="${product?.id}_productName" title="${product?.name}" class="productName ${product?.name?.length >= longProductNameLen ? `longProductName` : `medProductName`} ${product?.featured ? `featuredName` : `standardProductName`}">

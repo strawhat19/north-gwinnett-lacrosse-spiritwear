@@ -220,6 +220,10 @@ option {
 .aiBadge {
     transform: rotate(30deg);
 }
+.productImagePlaceholder {
+    transform: scale(0.8);
+    transform-origin: center;
+}
 .product a h3 {
     margin-left: auto;
     margin-right: auto;
