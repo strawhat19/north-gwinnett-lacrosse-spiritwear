@@ -176,6 +176,9 @@ option {
 .standardProductName {
     font-size: 20px;
 }
+.longProductName {
+    font-size: 18px;
+}
 .product p, .paypalFieldsContainer, .productPriceInner {
     color: #666;
 }
@@ -221,7 +224,6 @@ option {
     position: relative;
     text-align: center;
     max-width: fit-content;
-    transition: var(--transition-5s);
 }
 .product a h3::before {
     right: 0;

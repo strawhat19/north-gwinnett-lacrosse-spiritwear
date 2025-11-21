@@ -1,4 +1,5 @@
 let maxDecimals = 2;
+let longProductNameLen = 31;
 let activeTab = `Spiritwear`;
 let businessEmail = `nghslaxbooster@gmail.com`;
 let sizes = [`Small`, `Medium`, `Large`, `X Large`, `XX Large`, `XXX Large`];
@@ -24,6 +25,9 @@ let colors = [`Black`, `Red`, `Grey`, `White`];
 let redFirstColors = [`Red`, `Black`, `Grey`, `White`];
 
 let types = [`T-Shirt`, `Sleeveless`, `Crewneck`, `Hoodie`];
+
+const numberIsOdd = number => number % 2 !== 0;
+const numberIsEven = number => number % 2 === 0;
 
 function onNavTabClick(e) {
     let ntName = e?.target?.title;
@@ -256,7 +260,7 @@ let products = [
         image: `lacrosssestick_vertical`,
         types: [`T-Shirt`, `Sleeveless`],
         id: `Lacrosse_Vertical_Stick_T_Shirt`,
-        name: `Lacrosse Vertical Stick Shirt`,
+        name: `Lacrosse Vertical Stick T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/lacrosssestick_vertical_black.png`],
     },
     {
@@ -276,7 +280,7 @@ let products = [
         image: `northgwinnett_black_bar`,
         types: [`T-Shirt`, `Sleeveless`],
         id: `Lacrosse_NGHS_Black_Bar_T_Shirt`,
-        name: `Lacrosse NGHS Black Bar Shirt`,
+        name: `Lacrosse NGHS Black Bar T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/northgwinnett_black_bar_black.png`],
     },
     {
@@ -294,8 +298,8 @@ let products = [
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
         id: `Lacrosse_Sticks_T_Shirt`,
-        name: `Lacrosse Sticks Shirt`,
         image: `lacrosse_sticks_shirt`,
+        name: `Lacrosse Sticks T-Shirt`,
         types: [`T-Shirt`, `Sleeveless`],
         imageURLs: [`${photosURL}/assets/official/lacrosse_sticks_shirt_black.png`],
     },
@@ -316,7 +320,7 @@ let products = [
         extraClasses: `T-Shirt`,
         types: [`T-Shirt`, `Sleeveless`],
         id: `Lacrosse_NGHS_Bulldogs_T_Shirt`,
-        name: `Lacrosse NGHS Bulldogs Shirt`,
+        name: `Lacrosse NGHS Bulldogs T-Shirt`,
         imageURLs: [`${photosURL}/assets/official/NG_bulldogs_black.png`],
     },
     {
@@ -332,10 +336,10 @@ let products = [
         usePlaceholder: false,
         hasColorOptions: true,
         extraClasses: `T-Shirt`,
+        types: [`T-Shirt`, `Hoodie`],
         id: `NGHS_Under_Armour_T_Shirt`,
         name: `NGHS Under Armour T-Shirt`,
         colors: [colorsObj.black, colorsObj.red],
-        types: [`T-Shirt`, `Sleeveless`, `Hoodie`],
         imageURLs: [`${photosURL}/assets/official/NG_ua_bulldogs_black.png`],
     },
     {
@@ -448,7 +452,13 @@ function onTypeChange(product, productElement, optionValue, optionValueLC, produ
                 }
                 product.name = product.name.replaceAll(pType, optionValue);
                 if (pNameField) {
+                    pNameField.title = product.name;
                     pNameField.innerHTML = product.name;
+                    if (product?.name?.length >= longProductNameLen) {
+                        pNameField.className = pNameField?.className?.replaceAll(`medProductName`, `longProductName`);
+                    } else {
+                        pNameField.className = pNameField?.className?.replaceAll(`longProductName`, `medProductName`);
+                    }
                 }
                 if (commit) setProductForm(product?.id);
             }
@@ -631,7 +641,7 @@ const typeComponents = {
                     value="${t}" 
                     onclick="setProductParam(event)"
                     id="${productID}_type_button_${t}" 
-                    class="tabButton typeButton ${typs?.length == 3 && ti == 2 ? `extendedCol` : ``} ${t == tTyp ? `activeTabButton` : `inactiveTabButton`}" 
+                    class="tabButton typeButton ${(numberIsOdd(typs?.length) && (ti + 1) >= typs?.length) ? `extendedCol` : ``} ${t == tTyp ? `activeTabButton` : `inactiveTabButton`}" 
                 >
                     ${t}
                 </button>`)).join(``)}
@@ -757,7 +767,7 @@ function appendProduct(product, container) {
                 <img id="productImage_${product?.id}" class="productImage" src="${product?.usePlaceholder ? placeholderImgURL : product?.imageURLs[0]}" alt="Product Photo" />
                 ${product?.ai ? `<img class="aiBadge" src="${aiBadge}" alt="AI Badge" />` : ``}
                 <div class="productDetails">
-                    <h3 class="productName ${product?.featured ? `featuredName` : `standardProductName`}">
+                    <h3 id="${product?.id}_productName" title="${product?.name}" class="productName ${product?.name?.length >= longProductNameLen ? `longProductName` : `medProductName`} ${product?.featured ? `featuredName` : `standardProductName`}">
                         ${product?.name}
                     </h3>
                     <div id="paypal-button-container-${product?.id}" class="paypalFieldsContainer productPrice paypal-button-container-${product?.id}">
