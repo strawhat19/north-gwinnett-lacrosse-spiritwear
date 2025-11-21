@@ -225,8 +225,8 @@ let products = [
         extraClasses: `T-Shirt`,
         id: `NGHS_Under_Armour_T_Shirt`,
         name: `NGHS Under Armour T-Shirt`,
-        comingSoon: [`crewneck`, `grey_hoodie`, `white_hoodie`],
         imageURLs: [`${photosURL}/assets/official/NG_ua_bulldogs_black.png`],
+        comingSoon: [`crewneck`, `grey_hoodie`, `white_hoodie`, `grey_sleeveless`, `white_sleeveless`],
     },
     {
         types,
